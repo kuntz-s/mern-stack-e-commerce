@@ -1,25 +1,27 @@
-import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-const logo = require("./assets/logo.png")
+import React, { useState } from "react";
+import Header from "./components/Header";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+//import Footer from './components/Footer';
 
-const App = () => {
+const Accueil = () => {
   return (
     <>
-      <Header/>
-      <main>
-        <h1>MERN STACK E-COMMERCEs </h1>
-        <img src={logo}  alt="logo" style={{backgroundColor:"yellow",color:"red"}}/>
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <button className="bg-violet-500 hover:bg-violet-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-violet-300">
-      Bouton
-    </button>
-      </main>
-      <Footer/>
+      {" "}
+      <Header />
+      <main className="container mx-auto bg-yellow-400/10 mt-5"></main>
     </>
-  )
-}
+  );
+};
 
-export default App
+const App = () => {
+  return (<BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Navigate replace to="/accueil" />} />
+      <Route path="/accueil" element = {<Accueil/>}/>
+    </Routes>
+  </BrowserRouter>);
+};
+/* <div className=" border-[4px] border-yellow-400 h-96 min-w-full bg-transparent">
+
+        </div>*/
+export default App;
