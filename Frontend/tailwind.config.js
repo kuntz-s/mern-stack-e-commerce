@@ -28,7 +28,8 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      white: "#ffffff"
+      white: "#ffffff",
+      black: "#000000"
     },
     extend: {},
     fontFamily: {

@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./components/Header";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 //import Footer from './components/Footer';
 
 const Accueil = () => {
+ 
   return (
     <>
       {" "}
       <Header />
       <main className="container mx-auto bg-yellow-400/10 mt-5"></main>
+ 
     </>
   );
 };
 
 const App = () => {
+
+  document.title = "Proshop"
+
   return (<BrowserRouter>
     <Routes>
       <Route path="/" element={<Navigate replace to="/accueil" />} />
