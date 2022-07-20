@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BiHelpCircle } from "react-icons/bi";
-import { BsPerson, BsHeart, BsCart3 } from "react-icons/bs";
-import { currencies, languages } from "../Constants";
+import { BsPerson, BsHeart, BsCart3, BsSearch } from "react-icons/bs";
+import { currencies, languages, categories, marques } from "../Constants";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import ReactCountryFlag from "react-country-flag";
@@ -29,7 +29,14 @@ const Header = () => {
   });
 
   //display items when hovering on them
-  const [headerHover, setHeaderHover] = useState({ registerHover: false });
+  const [headerHover, setHeaderHover] = useState({
+    registerHover: false,
+    categoriesHover: false,
+    marquesHover: false
+  });
+
+  //store user's search
+  const [search, setSearch] = useState("");
 
   //lanCur equals to language currency
   const [langCur, setLangCur] = useState({
@@ -65,8 +72,9 @@ const Header = () => {
 
   return (
     <header className="mx-4 ">
-      <section className="hidden mt-2 md:flex md:flex-row  min-w-full">
-        <div className="flex items-center bg-blue-500/10 basis-1/5 divide-x  divide-gray-400 divide-gray-400">
+      {/*top header section*/}
+      <section className="hidden md:flex md:flex-row  min-w-full">
+        <div className="flex items-center basis-1/5 divide-x  divide-gray-400 divide-gray-400">
           <div
             className="relative pr-2"
             onMouseEnter={() => setLangCur({ ...langCur, hover: true })}
@@ -188,12 +196,12 @@ const Header = () => {
             </Link>
           </div>
         </div>
-        <div className="bg-indigo-500/10 basis-3/5  shrink-0 flex justify-center items-center">
+        <div className="basis-3/5  shrink-0 flex justify-center items-center">
           <Link to="/">
             <img src={logo} className="scale-75" alt="logo" />
           </Link>
         </div>
-        <div className="bg-red-500/10 basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary">
+        <div className="basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary">
           <div className="flex items-center shrink-0">
             <ReactCountryFlag
               countryCode={location.country_code}
@@ -249,7 +257,7 @@ const Header = () => {
                 {" "}
                 <BsHeart data-tip data-for="favoris" />
               </span>
-              <ReactTooltip id="favoris" place="right" effect="float">
+              <ReactTooltip id="favoris" place="bottom" effect="float">
                 Vous avez 0 favoris
               </ReactTooltip>
             </Link>
@@ -257,9 +265,117 @@ const Header = () => {
 
           <div>
             <Link to="/cart">
-              <BsCart3 />
+              <span>
+                {" "}
+                <BsCart3 data-tip data-for="panier" />{" "}
+              </span>
+              <ReactTooltip id="panier" place="right" effect="float">
+                Vous avez 0 élements dans votre panier
+              </ReactTooltip>
             </Link>
           </div>
+        </div>
+      </section>
+      <section className="hidden md:flex md:flex-row  min-w-full py-1">
+        <div className="flex basis-3/5 items-center justify-around font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-white hover:[&>*]:border-primary">
+          <Link to="/">
+            <p>Accueil</p>
+          </Link>
+          <div
+            className="relative"
+            onMouseEnter={() =>
+              setHeaderHover({ ...headerHover, categoriesHover: true })
+            }
+            onMouseLeave={() =>
+              setHeaderHover({ ...headerHover, categoriesHover: false })
+            }
+          >
+            <p>Categories</p>
+
+            {/*used to prevent quitting of hovering when user transition from icon to register*/}
+            <div
+              className={`${
+                !headerHover.categoriesHover
+                  ? "hidden"
+                  : "absolute top-2 bg-transparent h-8 w-20"
+              }`}
+            ></div>
+
+            <div
+              className={`${
+                headerHover.categoriesHover
+                  ? "absolute p-4 columns-3 top-10 left-[-2em] overflow-hidden shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]"
+                  : "hidden"
+              }`}
+            >
+              {categories.map((categorie) => {
+                return (
+                  <p className="hover:text-primary cursor-pointer py-2 italic">
+                    {" "}
+                    <Link to={"/" + categorie.name}>{categorie.name} </Link>
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+          <Link to="/">
+            <p>Soldes</p>
+          </Link>
+          <div
+            className="relative"
+            onMouseEnter={() =>
+              setHeaderHover({ ...headerHover, marquesHover: true })
+            }
+            onMouseLeave={() =>
+              setHeaderHover({ ...headerHover, marquesHover: false })
+            }
+          >
+            <p>Marques</p>
+
+            {/*used to prevent quitting of hovering when user transition from icon to register*/}
+            <div
+              className={`${
+                !headerHover.marquesHover
+                  ? "hidden"
+                  : "absolute top-2 bg-transparent h-8 w-20"
+              }`}
+            ></div>
+
+            <div
+              className={`${
+                headerHover.marquesHover
+                  ? "absolute py-4 columns-3 top-10 md:left-[-8em] lg:left-[-2em] overflow-hidden shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]"
+                  : "hidden"
+              }`}
+            >
+              {marques.map((marque) => {
+                return (
+                  <p className="hover:text-primary cursor-pointer py-2 italic text-center">
+                    {" "}
+                    <Link to={"/" + marque.name}>{marque.name} </Link>
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+          <Link to="/">
+            <p>Contacts</p>
+          </Link>
+        </div>
+        <div className="hidden w-full md:flex basis-2/5 flex items-center border-2 border-solid rounded-full border-slate-900 ">
+          <input
+            className="appearance-none bg-transparent border-none rounded-l-full w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+            type="text"
+            aria-label="Full name"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button
+            className="flex items-center flex-shrink-0 bg-slate-900 hover:bg-slate-700 border-slate-900 hover:border-slate-700 text-sm border-[3px] text-white py-1 px-2 rounded-r-full"
+            type="button"
+            onClick={() => alert(search)}
+          >
+            <BsSearch className="mr-1" /> Rechercher
+          </button>
         </div>
       </section>
     </header>
