@@ -344,7 +344,7 @@ const Header = () => {
             <div
               className={`${
                 headerHover.marquesHover
-                  ? "absolute py-4 columns-3 top-10 md:left-[-8em] lg:left-[-2em] overflow-hidden shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]"
+                  ? "absolute py-4 columns-3 top-10 md:left-[-8em] lg:left-[-8em] overflow-hidden shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]"
                   : "hidden"
               }`}
             >
@@ -378,6 +378,7 @@ const Header = () => {
           </button>
         </div>
       </section>
+      <hr/>
     </header>
   );
 };
