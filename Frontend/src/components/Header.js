@@ -9,6 +9,20 @@ import ReactCountryFlag from "react-country-flag";
 const logo = require("../assets/logo.png");
 
 const Header = () => {
+  //store scroll position
+  const [offset, setOffset] = useState(null);
+  const setScroll = () => {
+    setOffset(window.scrollY);
+  };
+
+  //get page scroll position
+  useEffect(() => {
+    window.addEventListener("scroll", setScroll);
+    return () => {
+      window.removeEventListener("scroll", setScroll);
+    };
+  }, []);
+
   //fetch users location country, country code,ip ,etc.. ... and set location to it
   useEffect(() => {
     fetch("https://ipapi.co/json/")
@@ -32,7 +46,7 @@ const Header = () => {
   const [headerHover, setHeaderHover] = useState({
     registerHover: false,
     categoriesHover: false,
-    marquesHover: false
+    marquesHover: false,
   });
 
   //store user's search
@@ -70,11 +84,106 @@ const Header = () => {
     }
   };
 
+  const IconLinks = (props) => {
+    return (
+      <div
+        className={`${
+          offset <= 0 && props.hide ? "hidden" : ""
+        } basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary`}
+      >
+        <div
+          className={`shrink-0`}
+        >
+          <ReactCountryFlag
+            countryCode={location.country_code}
+            svg
+            style={
+              offset > 0 ? {display:"none"} :  { height: "1.5em", width: "1.5em" }}
+          />
+          <BsSearch  className={`${
+            offset <= 0 ? "hidden" : "font-[15px] cursor-pointer"
+          } `}/>
+        </div>
+        <div
+          className="relative"
+          onMouseEnter={() =>
+            setHeaderHover({ ...headerHover, registerHover: true })
+          }
+          onMouseLeave={() =>
+            setHeaderHover({ ...headerHover, registerHover: false })
+          }
+        >
+          <BsPerson className="cursor-pointer" />
+
+          {/*used to prevent quitting of hovering when user transition from icon to register*/}
+          <div
+            className={`${
+              !headerHover.registerHover
+                ? "hidden"
+                : "absolute top-[-6px] bg-transparent-300 h-10 w-6"
+            }`}
+          ></div>
+
+          <div
+            className={`${
+              !headerHover.registerHover
+                ? "hidden"
+                : "absolute bg-white rounded-md top-8 right-[-60px] shadow-md shadow-slate-900/30 min-w-[220px] px-2 py-2 [&>*]:my-2"
+            }`}
+          >
+            <button className="rounded-full w-full bg-primary hover:bg-primary/80 hover:border-primary/80 text-white border border-solid border-primary">
+              S'inscrire
+            </button>
+            {/*horizontal line with text center on it*/}
+            <div className="relative">
+              <hr />
+              <p className="absolute top-[-16px] left-[82px] bg-white m-0 px-1 text-gray-400">
+                ou
+              </p>
+            </div>
+            <button className="rounded-full w-full bg-transparent text-primary hover:bg-gray-200/50 border border-solid border-primary ">
+              Se connecter
+            </button>
+          </div>
+        </div>
+        <div>
+          <Link to="/favorites">
+            <span>
+              {" "}
+              <BsHeart data-tip data-for="favoris" />
+            </span>
+            <ReactTooltip id="favoris" place="bottom" effect="float">
+              Vous avez 0 favoris
+            </ReactTooltip>
+          </Link>
+        </div>
+
+        <div>
+          <Link to="/cart">
+            <span>
+              {" "}
+              <BsCart3 data-tip data-for="panier" />{" "}
+            </span>
+            <ReactTooltip id="panier" place="bottom" effect="float">
+              Vous avez 0 élements dans votre panier
+            </ReactTooltip>
+          </Link>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <header className="mx-4 ">
+    <header className="bg-white mx-4 ">
       {/*top header section*/}
-      <section className="hidden md:flex md:flex-row  min-w-full">
-        <div className="flex items-center basis-1/5 divide-x  divide-gray-400 divide-gray-400">
+      <section
+        className={` ${
+          offset > 0 ? "md:hidden" : ""
+        } hidden md:flex md:flex-row  min-w-full`}
+      >
+        <div
+          className={`flex items-center basis-1/5 divide-x  divide-gray-400 divide-gray-400`}
+        >
           <div
             className="relative pr-2"
             onMouseEnter={() => setLangCur({ ...langCur, hover: true })}
@@ -201,83 +310,15 @@ const Header = () => {
             <img src={logo} className="scale-75" alt="logo" />
           </Link>
         </div>
-        <div className="basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary">
-          <div className="flex items-center shrink-0">
-            <ReactCountryFlag
-              countryCode={location.country_code}
-              svg
-              style={{ height: "1.5em", width: "1.5em" }}
-            />
-          </div>
-          <div
-            className="relative"
-            onMouseEnter={() =>
-              setHeaderHover({ ...headerHover, registerHover: true })
-            }
-            onMouseLeave={() =>
-              setHeaderHover({ ...headerHover, registerHover: false })
-            }
-          >
-            <BsPerson className="cursor-pointer" />
-
-            {/*used to prevent quitting of hovering when user transition from icon to register*/}
-            <div
-              className={`${
-                !headerHover.registerHover
-                  ? "hidden"
-                  : "absolute top-[-6px] bg-transparent-300 h-10 w-6"
-              }`}
-            ></div>
-
-            <div
-              className={`${
-                !headerHover.registerHover
-                  ? "hidden"
-                  : "absolute bg-white rounded-md top-8 right-[-60px] shadow-md shadow-slate-900/30 min-w-[220px] px-2 py-2 [&>*]:my-2"
-              }`}
-            >
-              <button className="rounded-full w-full bg-primary hover:bg-primary/80 hover:border-primary/80 text-white border border-solid border-primary">
-                S'inscrire
-              </button>
-              {/*horizontal line with text center on it*/}
-              <div className="relative">
-                <hr />
-                <p className="absolute top-[-16px] left-[82px] bg-white m-0 px-1 text-gray-400">
-                  ou
-                </p>
-              </div>
-              <button className="rounded-full w-full bg-transparent text-primary hover:bg-gray-200/50 border border-solid border-primary ">
-                Se connecter
-              </button>
-            </div>
-          </div>
-          <div>
-            <Link to="/favorites">
-              <span>
-                {" "}
-                <BsHeart data-tip data-for="favoris" />
-              </span>
-              <ReactTooltip id="favoris" place="bottom" effect="float">
-                Vous avez 0 favoris
-              </ReactTooltip>
-            </Link>
-          </div>
-
-          <div>
-            <Link to="/cart">
-              <span>
-                {" "}
-                <BsCart3 data-tip data-for="panier" />{" "}
-              </span>
-              <ReactTooltip id="panier" place="right" effect="float">
-                Vous avez 0 élements dans votre panier
-              </ReactTooltip>
-            </Link>
-          </div>
-        </div>
+        <IconLinks hide={false} />
       </section>
       <section className="hidden md:flex md:flex-row  min-w-full py-1">
-        <div className="flex basis-3/5 items-center justify-around font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-white hover:[&>*]:border-primary">
+        {/*insert logo to top left when position sticky */}
+        <div className={`${offset > 0 ? "basis-1/5 shrink-0" : "hidden"}`}>
+          <img src={logo} alt="logo" className="h-10 w-[150px]"/>
+        </div>
+
+        <div className={`flex basis-3/5 items-center ${offset>0 ? 'justify-between': 'justify-around'} font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-white hover:[&>*]:border-primary`}>
           <Link to="/">
             <p>Accueil</p>
           </Link>
@@ -304,13 +345,16 @@ const Header = () => {
             <div
               className={`${
                 headerHover.categoriesHover
-                  ? "absolute p-4 columns-3 top-10 left-[-2em] overflow-hidden shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]"
+                  ? `absolute p-4 columns-3 top-10  ${offset>0 ?"lg:left-[-4em] md:left-[-8em]":"left-[-2em]"} shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]`
                   : "hidden"
               }`}
             >
               {categories.map((categorie) => {
                 return (
-                  <p className="hover:text-primary cursor-pointer py-2 italic">
+                  <p
+                    key={categorie.id}
+                    className="hover:text-primary cursor-pointer py-2 italic"
+                  >
                     {" "}
                     <Link to={"/" + categorie.name}>{categorie.name} </Link>
                   </p>
@@ -344,13 +388,16 @@ const Header = () => {
             <div
               className={`${
                 headerHover.marquesHover
-                  ? "absolute py-4 columns-3 top-10 md:left-[-8em] lg:left-[-8em] overflow-hidden shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]"
+                  ? `absolute py-4 columns-3 top-10 ${offset>0 ?"lg:left-[-16em] md:left-[-22em]":"lg:left-[-8em] md:left-[-8em]"}  shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]`
                   : "hidden"
               }`}
             >
               {marques.map((marque) => {
                 return (
-                  <p className="hover:text-primary cursor-pointer py-2 italic text-center">
+                  <p
+                    key={marque.id}
+                    className="hover:text-primary cursor-pointer py-2 italic text-center"
+                  >
                     {" "}
                     <Link to={"/" + marque.name}>{marque.name} </Link>
                   </p>
@@ -362,7 +409,11 @@ const Header = () => {
             <p>Contacts</p>
           </Link>
         </div>
-        <div className="hidden w-full md:flex basis-2/5 flex items-center border-2 border-solid rounded-full border-slate-900 ">
+        <div
+          className={`hidden ${
+            offset > 0 ? "md:hidden" : ""
+          } w-full md:flex basis-2/5 flex items-center border-2 border-solid rounded-full border-slate-900 `}
+        >
           <input
             className="appearance-none bg-transparent border-none rounded-l-full w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
             type="text"
@@ -377,8 +428,12 @@ const Header = () => {
             <BsSearch className="mr-1" /> Rechercher
           </button>
         </div>
+
+        {/*insert icon links to top right when position sticky */}
+        <IconLinks hide={true} />
       </section>
-      <hr/>
+      <hr />
+      <p>{offset}</p>
     </header>
   );
 };
