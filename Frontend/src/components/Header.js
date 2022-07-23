@@ -174,7 +174,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white mx-4 ">
+    <header className=" mx-4 ">
       {/*top header section*/}
       <section
         className={` ${
@@ -288,7 +288,7 @@ const Header = () => {
               <div className="flex justify-end w-full ">
                 <button
                   type="button"
-                  className="bg-primary rounded-lg text-white px-2 py-1 mt-2 font-bold hover:bg-primary/70"
+                  className="bg-primary text-white px-2 py-1 mt-2 font-bold hover:bg-primary/70"
                   onClick={handleSubmit}
                 >
                   Enregistrer
@@ -318,7 +318,7 @@ const Header = () => {
           <img src={logo} alt="logo" className="h-10 w-[150px]"/>
         </div>
 
-        <div className={`flex basis-3/5 items-center ${offset>0 ? 'justify-between': 'justify-around'} font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-white hover:[&>*]:border-primary`}>
+        <div className={`flex basis-3/5 items-center ${offset>0 ? 'justify-between': 'justify-around'} font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-transparent hover:[&>*]:border-primary`}>
           <Link to="/">
             <p>Accueil</p>
           </Link>
@@ -433,7 +433,6 @@ const Header = () => {
         <IconLinks hide={true} />
       </section>
       <hr />
-      <p>{offset}</p>
     </header>
   );
 };

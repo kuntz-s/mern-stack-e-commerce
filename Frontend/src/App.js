@@ -1,25 +1,6 @@
 import React from "react";
-import Header from "./components/Header";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-//import Footer from './components/Footer';
-
-const Accueil = () => {
- 
-  return (
-    <>
-      {" "}
-      
-      
-      
-      <div className="sticky top-0">
-      <Header />
-      </div>
-      <main className="container mx-auto bg-yellow-400/10 mt-5 h-[150vh] border-2 border-solid border-stale-900">
-      </main>
- 
-    </>
-  );
-};
+import Accueil from "./screens/Accueil";
 
 const App = () => {
 

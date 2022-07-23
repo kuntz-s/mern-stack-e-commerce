@@ -31,7 +31,15 @@ module.exports = {
       white: "#ffffff",
       black: "#000000"
     },
-    extend: {},
+    extend: {
+      zIndex: {
+        '100': '100',
+        '1000': '1000',
+      },
+      scale: {
+        '60': '0.60',
+      }
+    },
     fontFamily: {
       sans: ["Roboto", "ui-sans-serif", "system-ui"],
     },
