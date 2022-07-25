@@ -37,7 +37,7 @@ const Carousel = () => {
                 <p className=' md:hidden font-medium my-3 text-sm'>Votre magasin de vente <br/>de produits electroniques en ligne</p>
                 <button
                   type="button"
-                  className="bg-primary text-md lg:text-xl text-white border border-solid border-primary px-3 py-2 mt-2 hover:bg-white hover:border-1 hover:border-solid hover:border-primary hover:text-primary"
+                  className="bg-primary text-md lg:text-xl text-white border border-solid border-primary px-3 py-2 mt-2 hover:bg-gray-200 hover:border-1 hover:border-solid hover:border-primary hover:text-primary"
                 >
                   &#8594; Parcourir
                 </button>
