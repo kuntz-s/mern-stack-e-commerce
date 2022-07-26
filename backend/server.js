@@ -1,8 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import products from './data/products.js'
+import products from './data/products.js';
+import connectDB from "./config/db.js";
+import colors from "colors";
 
-dotenv.config();
+dotenv.config(); //allow to use environment variables on our project
+
+connectDB() //connecting the database when starting the server
 
 const app = express();
 
