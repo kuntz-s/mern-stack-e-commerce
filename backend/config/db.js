@@ -8,9 +8,9 @@ const connectDB = async () => {
             useNewUrlParser:true
         })
         
-        console.log(`MongoDb connected`)
+        console.log(`MongoDb connected`.yellow.underline)
     } catch (error) {
-        console.log(`Error: ${error.message}`);
+        console.log(`Error: ${error.message}`.red.underline.bold);
         process.exit(1) //passing one as argument means it is going to exit with failure status
     }
 }
