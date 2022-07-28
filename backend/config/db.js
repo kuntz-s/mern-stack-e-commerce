@@ -8,7 +8,7 @@ const connectDB = async () => {
             useNewUrlParser:true
         })
         
-        console.log(`\nConnected succesfully to mongodb database \n`.yellow.underline)
+        console.log(`\nConnected succesfully to mongodb database \n`.yellow)
     } catch (error) {
         //console.log(`Error: ${error.message}`.red.underline.bold);
         console.log(`Error: ${error.message}`.red.underline.bold);
