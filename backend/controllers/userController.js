@@ -9,11 +9,22 @@ import User from "../models/userModel.js";
  */
 const authUser = (asyncHandler (async (req, res) => {
    const {email, password} = req.body;
-    
-    res.send({
-        email,
-        password
-    })
+
+   const user = await User.findOne({email: email});
+   
+   if(user && await(user.matchPassword(password))){
+        res.json({
+            _id: user._id,
+            name: user.name,
+            surname: user.surname,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: null
+        })
+   }else {
+        res.status(401);
+        throw new Error('invalid password or email');
+   }
 }))
 
 export {authUser}
