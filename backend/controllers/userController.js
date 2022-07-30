@@ -28,4 +28,27 @@ const authUser = (asyncHandler (async (req, res) => {
    }
 }))
 
-export {authUser}
+/**
+ * @desc get user profile info
+ * @routes GET api/users/profile
+ * @acces private
+ */
+const getUserProfile = (asyncHandler (async (req, res) => {
+     console.log("req.user is", req.user)
+     const user = await User.findById(req.user._id);
+     if(user){
+          res.json({
+               _id: user._id,
+               name: user.name,
+               surname: user.surname,
+               email: user.email,
+               isAdmin: user.isAdmin,
+               })
+     }else {
+          res.status(404);
+          throw new Error("user not found")
+     }
+}))
+
+
+export {authUser, getUserProfile}
