@@ -1,13 +1,21 @@
 import asyncHandler from "express-async-handler";
 import Category from "../models/categoryModel.js"
 
-
+/**
+ * @desc get all categories
+ * @routes GET api/categories
+ * @acces public
+ */
 const getAllCategories = asyncHandler(async (req, res ) => {
     const categories =await  Category.find({});
     res.json(categories)
 })
 
-
+/**
+ * @desc add a new category
+ * @routes POST api/categories
+ * @acces private
+ */
 const addCategory = asyncHandler(async (req, res) => {
     const {name, image} = req.body;
 
