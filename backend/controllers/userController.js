@@ -87,5 +87,47 @@ const getUserProfile = (asyncHandler (async (req, res) => {
   }))
   
 
+  /**
+ * @desc fetch all users from the database
+ * @routes GET api/users
+ * @access private
+ */
+const getAllUsers = asyncHandler(async (req, res) => {
+     const users = await User.find({});
+     res.json(users);
+   });
 
-export {authUser, getUserProfile, registerUser}
+/**
+ * @desc delete user
+ * @routes DELETE api/users/:id
+ * @acces private
+ */
+ const deleteUser = asyncHandler(async (req, res) => {
+     const userExists = await User.findById(req.params.id);
+     if(userExists){
+           await userExists.remove();
+          res.json("user removed");
+     }else {
+          res.status(404);
+          throw new Error('user does not exists')
+     }
+   });
+
+/**
+ * @desc get user by id
+ * @routes GET api/users/:id
+ * @acces private
+ */
+ const getUserById = asyncHandler(async (req, res) => {
+     const user = await User.findById(req.params.id).select('-password');
+     if(user){
+          res.json(user)
+     }else {
+          res.status(404);
+          throw new Error('user does not exists')  
+     }
+   });
+
+
+
+export {authUser, getUserProfile, registerUser, getAllUsers, deleteUser, getUserById}

@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import brandRoutes from "./routes/brandRoutes.js";
+import orderRoutes from "./routes/orderRoutes"
 import colors from "colors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -30,6 +33,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/brands", brandRoutes);
+app.use("/api/orders",orderRoutes)
 
 
 //setting up the middleware (function that will the receive the Request and Response objects. As a third argument you have another function which you should call once your middleware code completed.)
