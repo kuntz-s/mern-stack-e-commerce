@@ -87,5 +87,15 @@ const getUserProfile = (asyncHandler (async (req, res) => {
   }))
   
 
+  /**
+ * @desc fetch all users from the database
+ * @routes GET api/users
+ * @access private
+ */
+const getAllUsers = asyncHandler(async (req, res) => {
+     const users = await User.find({});
+     res.json(users);
+   });
 
-export {authUser, getUserProfile, registerUser}
+
+export {authUser, getUserProfile, registerUser, getAllUsers}
