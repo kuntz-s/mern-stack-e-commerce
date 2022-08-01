@@ -97,5 +97,20 @@ const getAllUsers = asyncHandler(async (req, res) => {
      res.json(users);
    });
 
+/**
+ * @desc delete user
+ * @routes POST api/users/:id
+ * @acces privete
+ */
+ const deleteUser = asyncHandler(async (req, res) => {
+     const userExists = await User.findById(req.params.id);
+     if(userExists){
+           await userExists.remove();
+          res.json("user removed");
+     }else {
+          res.status(404);
+          throw new Error('user does not exists')
+     }
+   });
 
-export {authUser, getUserProfile, registerUser, getAllUsers}
+export {authUser, getUserProfile, registerUser, getAllUsers, deleteUser}
