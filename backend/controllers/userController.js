@@ -99,8 +99,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 /**
  * @desc delete user
- * @routes POST api/users/:id
- * @acces privete
+ * @routes DELETE api/users/:id
+ * @acces private
  */
  const deleteUser = asyncHandler(async (req, res) => {
      const userExists = await User.findById(req.params.id);
@@ -113,4 +113,21 @@ const getAllUsers = asyncHandler(async (req, res) => {
      }
    });
 
-export {authUser, getUserProfile, registerUser, getAllUsers, deleteUser}
+/**
+ * @desc get user by id
+ * @routes GET api/users/:id
+ * @acces private
+ */
+ const getUserById = asyncHandler(async (req, res) => {
+     const user = await User.findById(req.params.id).select('-password');
+     if(user){
+          res.json(user)
+     }else {
+          res.status(404);
+          throw new Error('user does not exists')  
+     }
+   });
+
+
+
+export {authUser, getUserProfile, registerUser, getAllUsers, deleteUser, getUserById}
