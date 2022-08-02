@@ -43,6 +43,9 @@ module.exports = {
     fontFamily: {
       sans: ["Roboto", "ui-sans-serif", "system-ui"],
     },
+    backgroundImage: {
+      'loginBackground': "url('./assets/s.jpg')"
+    }
   },
   plugins: [],
 };

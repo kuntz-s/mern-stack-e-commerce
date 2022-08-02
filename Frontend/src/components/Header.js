@@ -3,12 +3,14 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BiHelpCircle } from "react-icons/bi";
 import { BsPerson, BsHeart, BsCart3, BsSearch } from "react-icons/bs";
 import { currencies, languages, categories, marques } from "../Constants";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import ReactCountryFlag from "react-country-flag";
 const logo = require("../assets/logo.png");
 
 const Header = () => {
+
+  const navigate = useNavigate();
   //store scroll position
   const [offset, setOffset] = useState(null);
   const setScroll = () => {
@@ -91,18 +93,21 @@ const Header = () => {
           offset <= 0 && props.hide ? "hidden" : ""
         } basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary`}
       >
-        <div
-          className={`shrink-0`}
-        >
+        <div className={`shrink-0`}>
           <ReactCountryFlag
             countryCode={location.country_code}
             svg
             style={
-              offset > 0 ? {display:"none"} :  { height: "1.5em", width: "1.5em" }}
+              offset > 0
+                ? { display: "none" }
+                : { height: "1.5em", width: "1.5em" }
+            }
           />
-          <BsSearch  className={`${
-            offset <= 0 ? "hidden" : "font-[15px] cursor-pointer"
-          } `}/>
+          <BsSearch
+            className={`${
+              offset <= 0 ? "hidden" : "font-[15px] cursor-pointer"
+            } `}
+          />
         </div>
         <div
           className="relative"
@@ -141,7 +146,9 @@ const Header = () => {
                 ou
               </p>
             </div>
-            <button className="rounded-full w-full bg-transparent text-primary hover:bg-gray-200/50 border border-solid border-primary ">
+            <button 
+              className="rounded-full w-full bg-transparent text-primary hover:bg-gray-200/50 border border-solid border-primary "
+              onClick={() => navigate('/connexion')}>
               Se connecter
             </button>
           </div>
@@ -210,7 +217,7 @@ const Header = () => {
               className={`${
                 !langCur.hover
                   ? "hidden"
-                  : "block shadow-md shadow-slate-900/30 absolute rounded-md bg-white md:top-[3.5rem] lg:top-[2rem] min-w-[220px] px-2 py-2 "
+                  : "block shadow-md  shadow-slate-900/30 absolute rounded-md bg-white md:top-[3.5rem] lg:top-[2rem] min-w-[220px] px-2 py-2 "
               }`}
             >
               <p className="font-bold">Paramètres</p>
@@ -315,10 +322,14 @@ const Header = () => {
       <section className="hidden md:flex md:flex-row  min-w-full py-1">
         {/*insert logo to top left when position sticky */}
         <div className={`${offset > 0 ? "basis-1/5 shrink-0" : "hidden"}`}>
-          <img src={logo} alt="logo" className="h-10 w-[150px]"/>
+          <img src={logo} alt="logo" className="h-10 w-[150px]" />
         </div>
 
-        <div className={`flex basis-3/5 items-center ${offset>0 ? 'justify-between': 'justify-around'} font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-transparent hover:[&>*]:border-primary`}>
+        <div
+          className={`flex basis-3/5 items-center ${
+            offset > 0 ? "justify-between" : "justify-around"
+          } font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-transparent hover:[&>*]:border-primary`}
+        >
           <Link to="/">
             <p>Accueil</p>
           </Link>
@@ -345,7 +356,11 @@ const Header = () => {
             <div
               className={`${
                 headerHover.categoriesHover
-                  ? `absolute p-4 columns-3 top-10  ${offset>0 ?"lg:left-[-4em] md:left-[-8em]":"left-[-2em]"} shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]`
+                  ? `absolute p-4 columns-3 top-10  ${
+                      offset > 0
+                        ? "lg:left-[-4em] md:left-[-8em]"
+                        : "left-[-2em]"
+                    } shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]`
                   : "hidden"
               }`}
             >
@@ -388,7 +403,11 @@ const Header = () => {
             <div
               className={`${
                 headerHover.marquesHover
-                  ? `absolute py-4 columns-3 top-10 ${offset>0 ?"lg:left-[-16em] md:left-[-22em]":"lg:left-[-8em] md:left-[-8em]"}  shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]`
+                  ? `absolute py-4 columns-3 top-10 ${
+                      offset > 0
+                        ? "lg:left-[-16em] md:left-[-22em]"
+                        : "lg:left-[-8em] md:left-[-8em]"
+                    }  shadow-md shadow-slate-900/30 bg-gray-100 lg:w-[50vw] md:w-[75vw]`
                   : "hidden"
               }`}
             >

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Accueil from "./screens/Accueil";
+import ConnexionScreen from "./screens/ConnexionScreen"
 
 const App = () => {
 
@@ -10,6 +11,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Navigate replace to="/accueil" />} />
       <Route path="/accueil" element = {<Accueil/>}/>
+      <Route path="/connexion" element = {<ConnexionScreen/>}/>
     </Routes>
   </BrowserRouter>);
 };
