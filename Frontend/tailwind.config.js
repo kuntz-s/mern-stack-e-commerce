@@ -44,7 +44,8 @@ module.exports = {
       sans: ["Roboto", "ui-sans-serif", "system-ui"],
     },
     backgroundImage: {
-      'loginBackground': "url('./assets/s.jpg')"
+      'loginBackground': "url('./assets/loginBg.jpg')",
+      'loginImage': "url('./assets/s.jpg')"
     }
   },
   plugins: [],
