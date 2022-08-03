@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Accueil from "./screens/Accueil";
-import ConnexionScreen from "./screens/ConnexionScreen"
+import ConnexionScreen from "./screens/ConnexionScreen";
+import InscriptionScreen from "./screens/InscriptionScreen";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
       <Route path="/" element={<Navigate replace to="/accueil" />} />
       <Route path="/accueil" element = {<Accueil/>}/>
       <Route path="/connexion" element = {<ConnexionScreen/>}/>
+      <Route path="/inscription" element = {<InscriptionScreen/>}/>
     </Routes>
   </BrowserRouter>);
 };

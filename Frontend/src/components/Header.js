@@ -136,7 +136,10 @@ const Header = () => {
                 : "absolute bg-white rounded-md top-8 right-[-60px] shadow-md shadow-slate-900/30 min-w-[220px] px-2 py-2 [&>*]:my-2"
             }`}
           >
-            <button className="rounded-full w-full bg-primary hover:bg-primary/80 hover:border-primary/80 text-white border border-solid border-primary">
+            <button 
+              className="rounded-full w-full bg-primary hover:bg-primary/80 hover:border-primary/80 text-white border border-solid border-primary"
+              onClick = {() => navigate('/inscription')}
+            >
               S'inscrire
             </button>
             {/*horizontal line with text center on it*/}
