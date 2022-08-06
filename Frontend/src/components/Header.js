@@ -91,7 +91,7 @@ const Header = () => {
       <div
         className={`${
           offset <= 0 && props.hide ? "hidden" : ""
-        } basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary`}
+        } overflow-hidden basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary`}
       >
         <div className={`shrink-0`}>
           <ReactCountryFlag
@@ -189,7 +189,7 @@ const Header = () => {
       <section
         className={` ${
           offset > 0 ? "md:hidden" : ""
-        } hidden md:flex md:flex-row  min-w-full`}
+        } hidden md:flex md:flex-row  min-w-full `}
       >
         <div
           className={`flex items-center basis-1/5 divide-x  divide-gray-400 divide-gray-400`}
@@ -226,7 +226,7 @@ const Header = () => {
               <p className="font-bold">Paramètres</p>
               {/*selecting language preference*/}
               <div>
-                <p className="text-gray-400 text-sm mt-2 mb-1"> Languages</p>
+                <p className="text-gray-400 text-sm mt-2 mb-1"> Langage</p>
                 <select
                   className="form-select form-select-sm
                           appearance-none 
@@ -266,7 +266,7 @@ const Header = () => {
 
               {/*for selecting currency preference*/}
               <div>
-                <p className="text-gray-400 text-sm mt-2 mb-1"> Devises</p>
+                <p className="text-gray-400 text-sm mt-2 mb-1"> Devise</p>
                 <select
                   className="form-select form-select-sm
                           appearance-none 
