@@ -5,7 +5,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
-import orderRoutes from "./routes/orderRoutes"
+import orderRoutes from "./routes/orderRoutes.js"
 import colors from "colors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
