@@ -88,7 +88,7 @@ const ConnexionScreen = () => {
                   />
                 </label>
               </div>
-              <div className="flex flex-row justify-end my-2">
+              <div className="flex flex-row justify-end mt-2">
                 <p className="password text-sm font-bold text-primary cursor-pointer hover:underline hover:underline-offset-1">
                   Mot de passe oublié?
                 </p>
@@ -101,6 +101,11 @@ const ConnexionScreen = () => {
                 {" "}
                 Se connecter
               </button>
+              <div className="flex flex-row my-2">
+                <p className="password text-sm font-bold text-primary cursor-pointer hover:underline hover:underline-offset-1" onClick={() => navigate('/inscription')}>
+                  vous n'avez pas de compte?
+                </p>
+              </div>
             </form>
           </div>
         </div>
