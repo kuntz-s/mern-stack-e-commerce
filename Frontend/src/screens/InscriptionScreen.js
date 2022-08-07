@@ -135,14 +135,14 @@ const InscriptionScreen = () => {
               </div>
               <button
                 type="button"
-                className="px-2 py-[6px] mt-2 w-full bg-primary hover:bg-primary/70 font-medium text-white text-center text-md rounded-md  cursor-pointer"
+                className="px-2 py-[6px] mt-4 w-full bg-primary hover:bg-primary/70 font-medium text-white text-center text-md rounded-md  cursor-pointer"
                 onClick = {() => console.log(loginInfo)}
               >
                 {" "}
                 S'inscrire
               </button>
-              <div className="flex flex-row justify-end my-2">
-                <p className="password text-sm font-bold text-primary cursor-pointer hover:underline hover:underline-offset-1">
+              <div className="flex flex-row my-2">
+                <p className="password text-sm font-bold text-primary cursor-pointer hover:underline hover:underline-offset-1" onClick={() => navigate('/connexion')}>
                   Vous possédez déjà un compte ?
                 </p>
               </div>

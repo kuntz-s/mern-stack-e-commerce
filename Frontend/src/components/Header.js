@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { BiHelpCircle } from "react-icons/bi";
-import { BsPerson, BsHeart, BsCart3, BsSearch } from "react-icons/bs";
 import { currencies, languages, categories, marques } from "../Constants";
 import { useNavigate, Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import ReactCountryFlag from "react-country-flag";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { BiHelpCircle } from "react-icons/bi";
+import {
+  BsPerson,
+  BsHeart,
+  BsCart3,
+  BsSearch,
+  BsX,
+  BsPersonPlusFill,
+  BsPersonFill,
+} from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { MdKeyboardArrowDown } from "react-icons/md";
+
 const logo = require("../assets/logo.png");
 
 const Header = () => {
-
   const navigate = useNavigate();
   //store scroll position
   const [offset, setOffset] = useState(null);
@@ -66,6 +76,9 @@ const Header = () => {
     language: languages[0].name,
     currency: currencies[0].abr,
   });
+
+  //show slide when clicking on the burger icon (display only in mobile view)
+  const [showSlide, setShowSlide] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -136,9 +149,9 @@ const Header = () => {
                 : "absolute bg-white rounded-md top-8 right-[-60px] shadow-md shadow-slate-900/30 min-w-[220px] px-2 py-2 [&>*]:my-2"
             }`}
           >
-            <button 
+            <button
               className="rounded-full w-full bg-primary hover:bg-primary/80 hover:border-primary/80 text-white border border-solid border-primary"
-              onClick = {() => navigate('/inscription')}
+              onClick={() => navigate("/inscription")}
             >
               S'inscrire
             </button>
@@ -149,9 +162,10 @@ const Header = () => {
                 ou
               </p>
             </div>
-            <button 
+            <button
               className="rounded-full w-full bg-transparent text-primary hover:bg-gray-200/50 border border-solid border-primary "
-              onClick={() => navigate('/connexion')}>
+              onClick={() => navigate("/connexion")}
+            >
               Se connecter
             </button>
           </div>
@@ -453,6 +467,135 @@ const Header = () => {
 
         {/*insert icon links to top right when position sticky */}
         <IconLinks hide={true} />
+      </section>
+      {/**
+       * Section which will be displayed when in small screen
+       */}
+      <section className="flex items-center  md:hidden min-w-full ">
+        <div className=" basis-1/5 cursor-pointer hover:text-primary">
+          <GiHamburgerMenu
+            className="text-[23px]"
+            onClick={() => setShowSlide(true)}
+          />
+        </div>
+        <div className="shrink-0 flex justify-center items-center basis-2/5 ">
+          <img
+            src={logo}
+            className="scale-[0.8] ml-[15%] cursor-pointer"
+            onClick={() => navigate("/")}
+            alt="logo"
+          />
+        </div>
+        <div className="flex justify-end basis-2/5 divide-x divide-solid divide-gray-400 [&>*]:text-[35px] [&>*]:px-2 hover:[&>*]:cursor-pointer hover:[&>*]:text-primary">
+          <BsSearch />
+          <BsHeart />
+          <BsCart3 />
+        </div>
+
+        {/**
+         * slide that will render when clicking on burger icon
+         */}
+        <div
+          className={`${
+            showSlide ? "" : "hidden"
+          } fixed top-0 left-0 min-w-[100vw] min-h-[100vh] bg-slate-900/40`}
+        >
+          {/*icon which will close the slide when clicking on it*/}
+          <BsX
+            className="absolute top-0 right-[12%] bg-white text-[40px] hover:cursor-pointer hover:text-primary"
+            onClick={() => setShowSlide(false)}
+          />
+
+          {/*slide content*/}
+          <div className="min-h-[100vh] w-[80%] bg-white">
+            {/**top part in which we will display the flag , the language choice and the currency choice */}
+            <div className="bg-primary text-white divide-x divide-solid divide-white flex justify-center items-center py-1">
+              <ReactCountryFlag
+                className="mx-2"
+                countryCode={location.country_code}
+                svg
+                style={{ height: "1.7em", width: "1.7em" }}
+              />
+              {/*for selecting language preference */}
+              <div className="flex items-center">
+                <select
+                  className="form-select form-select-sm
+                          appearance-none 
+                         cursor-pointer
+                          pl-2
+                          text-md
+                          text-white
+                          bg-primary bg-clip-padding bg-no-repeat
+                          transition
+                          ease-in-out
+                          m-0
+                          focus:text-white focus:bg-primary/50 focus:border-gray-300 focus:outline-none"
+                  aria-label=".form-select-sm example"
+                  onChange={(e) =>
+                    setLangCur({ ...langCur, language: e.target.value })
+                  }
+                  name="language"
+                >
+                  {languages.map((language, index) => {
+                    return (
+                      <option value={language.name} key={index}>
+                        {language.name}
+                      </option>
+                    );
+                  })}
+                </select>
+                <MdKeyboardArrowDown className="text-white mr-2" />
+              </div>
+
+              {/*for selecting currency preference */}
+              <div className="flex items-center">
+                <select
+                  className="form-select form-select-sm
+                  appearance-none 
+                 cursor-pointer
+                  pl-2
+                  text-md
+                  text-white
+                  bg-primary bg-clip-padding bg-no-repeat
+                  transition
+                  ease-in-out
+                  m-0
+                  focus:text-white focus:bg-primary/50 focus:border-gray-300 focus:outline-none"
+                  aria-label=".form-select-sm example"
+                  onChange={(e) =>
+                    setLangCur({ ...langCur, currency: e.target.value })
+                  }
+                  name="currency"
+                >
+                  {currencies.map((currency, index) => {
+                    return (
+                      <option value={currency.abr} key={index}>
+                        {currency.abr}
+                      </option>
+                    );
+                  })}
+                </select>
+                <MdKeyboardArrowDown className="text-white" />
+              </div>
+            </div>
+
+            {/*second part where we will display login and register icon*/}
+            <div className="bg-primary/60 flex justify-around text-white px-[10%] py-2 ">
+              <div className="flex flex-col items-center hover:bg-primary hover:bg-primary hover:shadow-md hover:shadow-slate-900/30 p-2 hover:cursor-pointer" onClick={() => navigate('/connexion')}>
+                <div className="border border-white rounded-full p-2 ">
+                  <BsPersonFill className="text-[150%]" />
+                </div>
+                <p className="text-md text-white ">Connexion</p>
+              </div>
+              <div className="flex flex-col items-center hover:bg-primary hover:shadow-md hover:shadow-slate-900/30 p-2 hover:cursor-pointer" onClick={() => navigate('/inscription')}>
+                <div className="border border-white rounded-full p-2 ">
+                  <BsPersonPlusFill className="text-[150%]" />
+                </div>
+                <p className="text-md text-white">Inscription</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <hr />
     </header>
