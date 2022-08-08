@@ -17,7 +17,7 @@ const getAllCategories = asyncHandler(async (req, res ) => {
  * @acces private
  */
 const addCategory = asyncHandler(async (req, res) => {
-    const {name, image} = req.body;
+    const {name, url} = req.body;
 
     const verify = await Category.findOne({name:name}); // returns null if category not found and array if found
     if(verify){
@@ -27,14 +27,14 @@ const addCategory = asyncHandler(async (req, res) => {
     else{
         const newCategory = await Category.create({
             name:name,
-            image:image
+            url:url
         })
 
         if(newCategory){
             res.status(201).json({
                 id:newCategory._id,
                 name:newCategory.name,
-                image:newCategory.image
+                url:newCategory.url
             })
         }else {
             res.status(404);
