@@ -109,7 +109,7 @@ const Header = () => {
       <div
         className={`${
           offset <= 0 && props.hide ? "hidden" : ""
-        } overflow-hidden basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary`}
+        }  basis-1/5 shrink-0 flex justify-end items-center divide-x divide-solid divide-gray-400 [&>*]:text-xl [&>*]:px-2 hover:[&>*]:text-primary`}
       >
         <div className={`shrink-0`}>
           <ReactCountryFlag
@@ -136,7 +136,7 @@ const Header = () => {
             setHeaderHover({ ...headerHover, registerHover: false })
           }
         >
-          <BsPerson className="cursor-pointer" />
+          <BsPerson className="cursor-pointer "/>
 
           {/*used to prevent quitting of hovering when user transition from icon to register*/}
           <div
