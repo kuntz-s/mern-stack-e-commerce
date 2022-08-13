@@ -17,7 +17,7 @@ const getAllBrands = asyncHandler(async (req, res ) => {
  * @acces private
  */
 const addBrand = asyncHandler(async (req, res) => {
-    const {name, image, description} = req.body;
+    const {name, url} = req.body;
 
     const verify = await Brand.findOne({name:name}); // returns null if brand not found and array if found
     if(verify){
@@ -27,16 +27,14 @@ const addBrand = asyncHandler(async (req, res) => {
     else{
         const newBrand = await Brand.create({
             name:name,
-            description: description,
-            image:image
+            url:url
         })
 
         if(newBrand){
             res.status(201).json({
                 id:newBrand._id,
                 name:newBrand.name,
-                description:newBrand.description,
-                image:newBrand.image,
+                url:newBrand.url
             })
         }else {
             res.status(404);
