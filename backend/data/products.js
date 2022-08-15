@@ -1,7 +1,16 @@
 const products = [
     {
-        id:"1",
-        nom:"nom 1"
+        name:"",
+        image:[""],
+        description:"",
+        brand:"",
+        category:"",
+        price:0,
+       // discount:null,
+        countInStock:5,
+        rating:3,
+        numReviews:5
+
     },
     {
         id:"2",

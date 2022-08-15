@@ -35,11 +35,9 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     image: [
-      {
-        url:{
+      {   
           type: String,
           required: true
-        }
       },
     ],
     brand: {
@@ -74,7 +72,7 @@ const productSchema = new mongoose.Schema(
     },
     discount: {
       type: Number,
-      default: 0,
+      default: null,
     },
     countInStock: {
       type: Number,
