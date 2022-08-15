@@ -1,5 +1,6 @@
 import express from 'express';
 import { getAllBrands, addBrand  } from '../controllers/brandController.js';
+import {protect, verifyAdmin} from "../middleware/authMiddleware.js";
 
 
 const router = express.Router();
@@ -7,7 +8,7 @@ const router = express.Router();
 
 router.route('/')
     .get(getAllBrands)
-    .post(addBrand)
+    .post( protect, verifyAdmin, addBrand)
 
 
 export default router;
