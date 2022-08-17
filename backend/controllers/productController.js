@@ -1,4 +1,5 @@
 import Product from "../models/productModel.js";
+import Category from "../models/categoryModel.js";
 import asyncHandler from "express-async-handler";
 
 /**
@@ -23,6 +24,82 @@ const getProductById = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error("Product not found");
+  }
+});
+
+/**
+ * @desc fetch all products with > 4.5 rated stars
+ * @routes GET api/products/popular
+ * @access Public
+ */
+
+const getPopularProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ rating: { $gt: 4 } });
+  if (products) {
+    res.status(200).json(products);
+  } else {
+    res.status(404);
+    throw new Error("popular products not found");
+  }
+});
+
+/**
+ * @desc fetch recent products of each category
+ * @routes GET api/products/new
+ * @access Public
+ */
+const getNewestProducts = asyncHandler(async (req, res) => {
+  //we first get all categories
+  const categories = await Category.find({});
+  if (categories) {
+    let newProducts = [];
+    for (let category of categories) {
+      const product = await Product.find({ category: category._id }).limit(1).sort({$natural: -1});
+      if (product) {
+        newProducts.push(product);
+      } else {
+        res.status(400);
+        throw new Error("no products where found");
+      }
+    }
+    res.status(201).json(newProducts);
+  } else {
+    res.status(404);
+    throw new Error("categories not found");
+  }
+});
+
+/**
+ * @desc fetch all products for a specified category
+ * @routes GET api/products/category/:id
+ * @access Public
+ */
+const getProductsByCategory = asyncHandler(async (req, res) => {
+  const products = await Product.find({ category: req.params.id });
+  if (products) {
+    res.status(200).json(products);
+  } else {
+    res.status(404);
+    throw new Error(
+      `no products where found for this category with id ${req.params.id}`
+    );
+  }
+});
+
+/**
+ * @desc fetch all products for a specified brand
+ * @routes GET api/products/brand/:id
+ * @access Public
+ */
+const getProductsByBrand = asyncHandler(async (req, res) => {
+  const products = await Product.find({ brad: req.params.id });
+  if (products) {
+    res.status(200).json(products);
+  } else {
+    res.status(404);
+    throw new Error(
+      `no products where found for this brand with id ${req.params.id}`
+    );
   }
 });
 
@@ -63,7 +140,7 @@ const addProduct = asyncHandler(async (req, res) => {
       countInStock: countInStock,
     });
 
-    if(newProduct){
+    if (newProduct) {
       res.status(201).json({
         id: newProduct._id,
         user: newProduct.user,
@@ -75,12 +152,20 @@ const addProduct = asyncHandler(async (req, res) => {
         price: newProduct.price,
         discount: newProduct.discount,
         countInStock: newProduct.countInStock,
-      })
+      });
     } else {
       res.status(404);
-      throw new Error('invalid data entries ');
+      throw new Error("invalid data entries ");
     }
   }
 });
 
-export { getAllProducts, getProductById, addProduct };
+export {
+  getAllProducts,
+  getProductById,
+  addProduct,
+  getPopularProducts,
+  getNewestProducts,
+  getProductsByCategory,
+  getProductsByBrand
+};
