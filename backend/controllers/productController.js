@@ -8,7 +8,9 @@ import asyncHandler from "express-async-handler";
  * @access Public
  */
 const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const products = await Product.find({})
+    .populate("brand")
+    .populate("category");
   res.json(products);
 });
 
@@ -18,7 +20,9 @@ const getAllProducts = asyncHandler(async (req, res) => {
  * @access Public
  */
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id)
+    .populate("brand")
+    .populate("category");
   if (product) {
     res.json(product);
   } else {
@@ -34,7 +38,9 @@ const getProductById = asyncHandler(async (req, res) => {
  */
 
 const getPopularProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({ rating: { $gt: 4 } });
+  const products = await Product.find({ rating: { $gt: 4 } })
+    .populate("brand")
+    .populate("category");
   if (products) {
     res.status(200).json(products);
   } else {
@@ -54,9 +60,13 @@ const getNewestProducts = asyncHandler(async (req, res) => {
   if (categories) {
     let newProducts = [];
     for (let category of categories) {
-      const product = await Product.find({ category: category._id }).limit(1).sort({$natural: -1});
+      const product = await Product.find({ category: category._id })
+        .limit(1)
+        .sort({ $natural: -1 })
+        .populate("brand")
+        .populate("category");
       if (product) {
-        newProducts.push(product);
+        if (product.length > 0) newProducts.push(product);
       } else {
         res.status(400);
         throw new Error("no products where found");
@@ -75,7 +85,9 @@ const getNewestProducts = asyncHandler(async (req, res) => {
  * @access Public
  */
 const getProductsByCategory = asyncHandler(async (req, res) => {
-  const products = await Product.find({ category: req.params.id });
+  const products = await Product.find({ category: req.params.id })
+    .populate("brand")
+    .populate("category");
   if (products) {
     res.status(200).json(products);
   } else {
@@ -92,7 +104,9 @@ const getProductsByCategory = asyncHandler(async (req, res) => {
  * @access Public
  */
 const getProductsByBrand = asyncHandler(async (req, res) => {
-  const products = await Product.find({ brad: req.params.id });
+  const products = await Product.find({ brad: req.params.id })
+    .populate("brand")
+    .populate("category");
   if (products) {
     res.status(200).json(products);
   } else {
@@ -167,5 +181,5 @@ export {
   getPopularProducts,
   getNewestProducts,
   getProductsByCategory,
-  getProductsByBrand
+  getProductsByBrand,
 };

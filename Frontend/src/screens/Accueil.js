@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Carousel from "../components/pageAccueil/Carousel";
 import CategoriesList from "../components/pageAccueil/CategoriesList";
 import BrandsList from "../components/pageAccueil/BrandsList";
+import ProductsDisplay from "../components/pageAccueil/ProductsDisplay";
 
 const Accueil = () => {
   return (
@@ -13,9 +14,9 @@ const Accueil = () => {
 
       <main>
         <Carousel />
-        <CategoriesList />
+        <CategoriesList />  
+        <ProductsDisplay />
         <BrandsList />
-        <div className="container mx-auto bg-yellow-400/10 mt-5 h-[150vh] border-2 border-solid border-stale-900"></div>  
       </main>
     </section>
   );
