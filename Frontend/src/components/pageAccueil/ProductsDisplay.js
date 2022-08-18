@@ -31,12 +31,19 @@ const ProductsDisplay = () => {
             NOUVEAUX PRODUITS
           </h5>
         </div>
-
         <ProductsCarouselDisplay data={newProducts} tag="new" />
       </section>
 
       {/**this section will be used to display informations about popular products */}
-      <section></section>
+      <section>
+      <div className="relative pt-6 pb-2 mx-2 mb-8 ">
+          <hr className="border border-slate-900" />
+          <h5 className="absolute top-3 left-[30%] md:left-[35%] lg:left-[40%] px-6 bg-white text-md md:text-xl lg:text-[22px] font-bold ">
+            PRODUITS POPULAIRES
+          </h5>
+        </div>
+        <ProductsCarouselDisplay data={popularProducts} tag="popular" />
+      </section>
     </>
   );
 };

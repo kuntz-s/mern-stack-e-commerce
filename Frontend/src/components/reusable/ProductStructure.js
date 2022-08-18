@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 const newImg = require('../../assets/new.png');
+const popularImg = require('../../assets/popular.png');
 
 const ProductStructure = (props) => {
   const product = props.product;
@@ -35,6 +36,7 @@ const ProductStructure = (props) => {
                 }}
               />
               <img src={newImg} alt="new tag" className={`${props.tag==="new" ?'h-8 w-8 md:h-12 md:w-12 absolute top-[-2px] md:top-[-4px] left-[-4px]' : 'hidden'}`} />
+              <img src={popularImg} alt="popular tag" className={`${props.tag==="popular" ?'h-10 w-8 md:h-14 md:w-12 absolute top-[-2px] md:top-[-2px] left-[-4px]' : 'hidden'}`} />
               <p className={`${elt.discount ===  0 ? 'hidden' : "absolute top-[-2px] right-0 p-1 text-sm font-bold bg-primary text-white"}`}>- {calculate(elt.price, elt.discount)}%</p>
             </Link>
             <div className="py-3">
