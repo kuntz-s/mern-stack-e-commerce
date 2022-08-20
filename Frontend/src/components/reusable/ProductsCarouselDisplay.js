@@ -15,7 +15,6 @@ import "swiper/css/autoplay";
 
 const ProductsCarouselDisplay = (props) => {
   const productsList = props.data;
-  console.log(props.data)
   const {width} = useWindowSize(); // 768, 640
 
 
