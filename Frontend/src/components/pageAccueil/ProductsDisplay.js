@@ -19,7 +19,7 @@ const ProductsDisplay = () => {
   });
 
   useEffect(() => {
-    if (!products.newProducts && !products.popularProducts) {
+    if (!categories.selectedId) {
       Promise.all([
         axios.get(newProductsUrl),
         axios.get(popularProductsUrl),
@@ -47,13 +47,13 @@ const ProductsDisplay = () => {
       axios
         .get(`/api/products/category/${categories.selectedId}`)
         .then((response) => {
-          setProducts((prev) => ({ ...prev, selectedProduct: response.data }));
+          setProducts((prev) => ({ ...prev, selectedProduct: response.data.length > 5 ?response.data.slice(0,5) : response.data }));
         })
         .catch((err) => {
           console.error(err);
         });
     }
-  }, [products, categories.selectedId]);
+  }, [ categories.selectedId]);
   return (
     <>
       {/**this section will be used to display informations about new products */}

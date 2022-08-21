@@ -47,42 +47,42 @@ export const products = [
 //telephones et accessoires, televisions, laptop et tablettes, audio et vidéo ,
 export const categories =[
     {
-        id:1,
+        _id:1,
         name:"categorie 1",
         image:"https://google.com"
     },
     {
-        id:2,
+        _id:2,
         name:"catégorie ",
         image:"https://google.com"
     },
     {
-        id:3,
+        _id:3,
         name:"catégorie 3",
         image:"https://google.com"
     },
     {
-        id:4,
+        _id:4,
         name:"catégorie 4",
         image:"https://google.com"
     },
     {
-        id:5,
+        _id:5,
         name:"catégorie 5",
         image:"https://google.com"
     },
     {
-        id:6,
+        _id:6,
         name:"catégorie 6",
         image:"https://google.com"
     },
     {
-        id:7,
+        _id:7,
         name:"catégorie 7",
         image:"https://google.com"
     },
     {
-        id:8,
+        _id:8,
         name:"catégorie 8",
         image:"https://google.com"
     }
@@ -90,49 +90,49 @@ export const categories =[
 
 export const marques =[
     {
-        id:1,
+        _id:1,
         name:"marque 1",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:2,
+        _id:2,
         name:"marque 2",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:3,
+        _id:3,
         name:"marque 3",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:4,
+        _id:4,
         name:"marque 4",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:5,
+        _id:5,
         name:"marque 5",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:6,
+        _id:6,
         name:"marque 6",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:7,
+        _id:7,
         name:"marque 7",
         description:"marque localisée au ... qui fais dans la vente de produits electroniques etc...",
         image:"brandImage"
     },
     {
-        id:8,
+        _id:8,
         name:"marque 8"
     }
 ]

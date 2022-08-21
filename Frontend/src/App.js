@@ -1,12 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Accueil from "./screens/Accueil";
 import ConnexionScreen from "./screens/ConnexionScreen";
 import InscriptionScreen from "./screens/InscriptionScreen";
+import {useDispatch} from "react-redux";
+import {getBrands, getCategories} from "./redux/dataSlice";
 
 const App = () => {
 
-  document.title = "Proshop"
+  document.title = "Proshop";
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getBrands());
+    dispatch(getCategories());
+  },[dispatch])
 
   return (<BrowserRouter>
     <Routes>

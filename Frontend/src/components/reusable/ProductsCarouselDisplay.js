@@ -17,7 +17,6 @@ const ProductsCarouselDisplay = (props) => {
   const productsList = props.data;
   const {width} = useWindowSize(); // 768, 640
 
-
   if (!productsList) {
     return (
       <Box

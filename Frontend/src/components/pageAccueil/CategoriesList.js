@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
+import { selectData } from "../../redux/dataSlice";
 
 // Import Swiper styles
 import "swiper/css";
@@ -16,13 +17,13 @@ import "swiper/css/autoplay";
 const CategoriesList = () => {
   const [categories, setCategories] = useState(null);
 
+  const { categoriesList } = useSelector(selectData);
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      const { data } = await axios.get("/api/categories");
-      setCategories(data);
-    };
-    fetchCategories();
-  }, []);
+    if (categoriesList) {
+      setCategories(categoriesList);
+    }
+  }, [categoriesList]);
 
   if (!categories) {
     return (

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { currencies, languages, categories, marques } from "../Constants";
+import { currencies, languages} from "../Constants";
 import { useNavigate, Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import ReactCountryFlag from "react-country-flag";
@@ -17,28 +17,50 @@ import {
   BsApple,
 } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdDashboard, MdHome, MdMoneyOff, MdHelp } from "react-icons/md";
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdDashboard,
+  MdHome,
+  MdMoneyOff,
+  MdHelp,
+} from "react-icons/md";
+import { selectData } from "../redux/dataSlice";
+import {useSelector} from "react-redux";
 
 const logo = require("../assets/logo.png");
 
 const Header = () => {
   const navigate = useNavigate();
+
+  //get list of categories and brands stored in the database
+  const {categoriesList, brandsList} = useSelector(selectData)
+
+  //store categories
+  const [dataList, setDataList] = useState({
+    categories:[],
+    brands:[]
+  })
+
   //store scroll position
   const [offset, setOffset] = useState(null);
   const setScroll = () => {
     setOffset(window.scrollY);
   };
 
-  //get page scroll position
   useEffect(() => {
-    window.addEventListener("scroll", setScroll);
-    return () => {
-      window.removeEventListener("scroll", setScroll);
-    };
-  }, []);
+    if(categoriesList) {
+      setDataList(prev => ({...prev, categories: categoriesList}));
+    }
 
-  //fetch users location country, country code,ip ,etc.. ... and set location to it
+    if(brandsList) {
+      setDataList(prev => ({...prev, brands: brandsList}));
+    }
+
+  },[categoriesList, brandsList])
+
   useEffect(() => {
+    //fetch users location country, country code,ip ,etc.. ... and set location to it
     fetch("https://ipapi.co/json/")
       .then((res) => res.json())
       .then((response) => {
@@ -47,6 +69,12 @@ const Header = () => {
       .catch((data, status) => {
         console.log("Request failed:", data);
       });
+
+    //get page scroll position
+    window.addEventListener("scroll", setScroll);
+    return () => {
+      window.removeEventListener("scroll", setScroll);
+    };
   }, []);
 
   //user current location
@@ -136,7 +164,7 @@ const Header = () => {
             setHeaderHover({ ...headerHover, registerHover: false })
           }
         >
-          <BsPerson className="cursor-pointer "/>
+          <BsPerson className="cursor-pointer " />
 
           {/*used to prevent quitting of hovering when user transition from icon to register*/}
           <div
@@ -386,10 +414,10 @@ const Header = () => {
                   : "hidden"
               }`}
             >
-              {categories.map((categorie) => {
+              {dataList.categories.map((categorie) => {
                 return (
                   <p
-                    key={categorie.id}
+                    key={categorie._id}
                     className="hover:text-primary cursor-pointer py-2 italic"
                   >
                     {" "}
@@ -433,14 +461,14 @@ const Header = () => {
                   : "hidden"
               }`}
             >
-              {marques.map((marque) => {
+              {dataList.brands.map((brand) => {
                 return (
                   <p
-                    key={marque.id}
+                    key={brand._id}
                     className="hover:text-primary cursor-pointer py-2 italic text-center"
                   >
                     {" "}
-                    <Link to={"/" + marque.name}>{marque.name} </Link>
+                    <Link to={"/" + brand.name}>{brand.name} </Link>
                   </p>
                 );
               })}
@@ -610,7 +638,10 @@ const Header = () => {
             <div className=" m-2  [&>*]:text-slate-500 [&>*]:text-md">
               {/**for accueil */}
               <div className="p-2 border border-slate-300 hover:cursor-pointer hover:bg-primary hover:text-white">
-                <Link to="/" className="flex items-center"><MdHome className="mr-1"/>Accueil</Link>
+                <Link to="/" className="flex items-center">
+                  <MdHome className="mr-1" />
+                  Accueil
+                </Link>
               </div>
               {/**for categories */}
               <div>
@@ -622,7 +653,10 @@ const Header = () => {
                       : setMobileCascader(null);
                   }}
                 >
-                  <p className="p-2 flex items-center"><MdDashboard className="mr-1"/>Catégories</p>
+                  <p className="p-2 flex items-center">
+                    <MdDashboard className="mr-1" />
+                    Catégories
+                  </p>
                   <div className="absolute top-0 right-0  text-xl bg-primary h-full flex justify-center items-center p-1">
                     <MdKeyboardArrowDown
                       className={`${mobileCascader === "cat" ? "hidden" : ""}`}
@@ -637,10 +671,10 @@ const Header = () => {
                     mobileCascader !== "cat" ? "hidden" : ""
                   } shadow-md shadow-slate-900/30 py-1 mb-1`}
                 >
-                  {categories.map((categorie) => {
+                  {dataList.categories.map((categorie) => {
                     return (
                       <p
-                        key={categorie.id}
+                        key={categorie._id}
                         className="hover:bg-primary pl-4 hover:text-white cursor-pointer "
                       >
                         {" "}
@@ -652,7 +686,9 @@ const Header = () => {
               </div>
               {/**for soldes */}
               <div className="p-2 border border-slate-300 hover:cursor-pointer hover:bg-primary hover:text-white">
-                <Link to="/soldes" className="flex items-center"><MdMoneyOff className="mr-1"/> Soldes</Link>
+                <Link to="/soldes" className="flex items-center">
+                  <MdMoneyOff className="mr-1" /> Soldes
+                </Link>
               </div>
               {/**for brands */}
               <div>
@@ -664,13 +700,19 @@ const Header = () => {
                       : setMobileCascader(null);
                   }}
                 >
-                  <p className="p-2 flex items-center"><BsApple className="mr-1"/>  Marques</p>
+                  <p className="p-2 flex items-center">
+                    <BsApple className="mr-1" /> Marques
+                  </p>
                   <div className="absolute top-0 right-0  text-xl bg-primary h-full flex justify-center items-center p-1">
                     <MdKeyboardArrowDown
-                      className={`${mobileCascader === "brand" ? "hidden" : ""}`}
+                      className={`${
+                        mobileCascader === "brand" ? "hidden" : ""
+                      }`}
                     />
                     <MdKeyboardArrowUp
-                      className={`${mobileCascader !== "brand" ? "hidden" : ""}`}
+                      className={`${
+                        mobileCascader !== "brand" ? "hidden" : ""
+                      }`}
                     />
                   </div>
                 </div>
@@ -679,14 +721,14 @@ const Header = () => {
                     mobileCascader !== "brand" ? "hidden" : ""
                   } shadow-md shadow-slate-900/30 py-1`}
                 >
-                  {marques.map((marque) => {
+                  {dataList.brands.map((brand) => {
                     return (
                       <p
-                        key={marque.id}
+                        key={brand._id}
                         className="hover:bg-primary  pl-4 hover:text-white cursor-pointer "
                       >
                         {" "}
-                        <Link to={"/" + marque.name}>{marque.name} </Link>
+                        <Link to={"/" + brand.name}>{brand.name} </Link>
                       </p>
                     );
                   })}
@@ -694,11 +736,15 @@ const Header = () => {
               </div>
               {/**for contacts */}
               <div className="p-2 border border-slate-300 hover:cursor-pointer hover:bg-primary hover:text-white">
-                <Link to="/contacts" className="flex items-center"><BsFillTelephoneFill className="mr-1"/> Contacts</Link>
+                <Link to="/contacts" className="flex items-center">
+                  <BsFillTelephoneFill className="mr-1" /> Contacts
+                </Link>
               </div>
               {/**for aides */}
               <div className="p-2 border border-slate-300 hover:cursor-pointer hover:bg-primary hover:text-white">
-                <Link to="/aide" className="flex items-center"><MdHelp className="mr-1"/> Aide</Link>
+                <Link to="/aide" className="flex items-center">
+                  <MdHelp className="mr-1" /> Aide
+                </Link>
               </div>
             </div>
           </div>
