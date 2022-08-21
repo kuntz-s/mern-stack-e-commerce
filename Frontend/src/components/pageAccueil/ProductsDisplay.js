@@ -19,7 +19,8 @@ const ProductsDisplay = () => {
   });
 
   useEffect(() => {
-    if (!products.newProducts && !products.popularProducts) {
+    console.log('enterred');
+    if (!categories.selectedId) {
       Promise.all([
         axios.get(newProductsUrl),
         axios.get(popularProductsUrl),
@@ -53,7 +54,7 @@ const ProductsDisplay = () => {
           console.error(err);
         });
     }
-  }, [products, categories.selectedId]);
+  }, [ categories.selectedId]);
   return (
     <>
       {/**this section will be used to display informations about new products */}
