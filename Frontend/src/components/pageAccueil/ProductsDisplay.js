@@ -19,7 +19,6 @@ const ProductsDisplay = () => {
   });
 
   useEffect(() => {
-    console.log('enterred');
     if (!categories.selectedId) {
       Promise.all([
         axios.get(newProductsUrl),
@@ -48,7 +47,7 @@ const ProductsDisplay = () => {
       axios
         .get(`/api/products/category/${categories.selectedId}`)
         .then((response) => {
-          setProducts((prev) => ({ ...prev, selectedProduct: response.data }));
+          setProducts((prev) => ({ ...prev, selectedProduct: response.data.length > 5 ?response.data.slice(0,5) : response.data }));
         })
         .catch((err) => {
           console.error(err);

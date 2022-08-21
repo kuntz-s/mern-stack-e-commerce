@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
+import { selectData } from "../../redux/dataSlice";
 
 const BrandsList = () => {
   const [brands, setBrands] = useState(null);
 
-  useEffect(() => {
-    const fetchBrands = async () => {
-      const { data } = await axios.get("/api/brands");
-      setBrands(data);
-    };
+  const { brandsList } = useSelector(selectData);
 
-    fetchBrands();
-  }, []);
+  useEffect(() => {
+    if (brandsList) {
+      setBrands(brandsList);
+    }
+  }, [brandsList]);
 
   if (!brands) {
     return (
