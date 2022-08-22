@@ -531,7 +531,7 @@ const Header = () => {
         <div
           className={`${
             showSlide ? "" : "hidden"
-          } fixed top-0 left-0 min-w-[100vw] min-h-[100vh] bg-slate-900/40`}
+          } fixed top-0 left-0 w-[100vw] h-[100vh] overflow-y-scroll bg-slate-900/40`}
         >
           {/*icon which will close the slide when clicking on it*/}
           <BsX
