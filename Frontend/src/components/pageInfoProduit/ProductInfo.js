@@ -10,7 +10,7 @@ const ProductInfo = () => {
 
     useEffect(() => {
         const getProduct = async () => {
-            const productInfo = await axios.get(`/api/products/${params.productId}`);
+            const productInfo = await axios.get(`${process.env.REACT_APP_PROXY_URL}/api/products/${params.productId}`);
             console.log(productInfo)
             setProductData(productInfo.data);
         }

@@ -5,7 +5,7 @@ export const getCategories = createAsyncThunk(
     'data/getCategories',
     async () => {
         try {
-            const categoriesData = await axios.get('/api/categories');
+            const categoriesData = await axios.get(`${process.env.REACT_APP_PROXY_URL}/api/categories`);
             return categoriesData.data;
         } catch (err) {
             console.error(err);
@@ -17,7 +17,7 @@ export const getBrands = createAsyncThunk(
     'data/getBrands',
     async () => {
         try {
-            const brands = await axios.get('/api/brands');
+            const brands = await axios.get(`${process.env.REACT_APP_PROXY_URL}/api/brands`);
             return brands.data;
         } catch (err) {
             console.error(err);

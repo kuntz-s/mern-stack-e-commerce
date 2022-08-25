@@ -12,7 +12,8 @@ import Product from "./screens/Product";
 const App = () => {
 
   document.title = "Proshop";
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  console.log("proxy est ",process.env.REACT_APP_PROXY_URL)
 
   useEffect(() => {
     dispatch(getBrands());

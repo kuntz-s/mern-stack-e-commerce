@@ -3,9 +3,11 @@ import ProductsCarouselDisplay from "../reusable/ProductsCarouselDisplay";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const popularProductsUrl = "/api/products/popular";
-const newProductsUrl = "/api/products/new";
-const categoriesUrl = "/api/categories";
+
+const proxyUrl = process.env.REACT_APP_PROXY_URL;
+const popularProductsUrl = `${proxyUrl}/api/products/popular`;
+const newProductsUrl = `${proxyUrl}/api/products/new`;
+const categoriesUrl = `${proxyUrl}/api/categories`;
 
 const ProductsDisplay = () => {
   const [products, setProducts] = useState({
