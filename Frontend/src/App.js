@@ -1,10 +1,13 @@
 import React, {useEffect} from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Accueil from "./screens/Accueil";
-import ConnexionScreen from "./screens/ConnexionScreen";
-import InscriptionScreen from "./screens/InscriptionScreen";
 import {useDispatch} from "react-redux";
 import {getBrands, getCategories} from "./redux/dataSlice";
+import ConnexionScreen from "./screens/ConnexionScreen";
+import InscriptionScreen from "./screens/InscriptionScreen";
+import Accueil from "./screens/Accueil";
+import Product from "./screens/Product";
+
+
 
 const App = () => {
 
@@ -18,10 +21,11 @@ const App = () => {
 
   return (<BrowserRouter>
     <Routes>
-      <Route path="/" element={<Navigate replace to="/accueil" />} />
+      <Route path="/" element={<Navigate replace to="/product/:productId" />} />
       <Route path="/accueil" element = {<Accueil/>}/>
       <Route path="/connexion" element = {<ConnexionScreen/>}/>
       <Route path="/inscription" element = {<InscriptionScreen/>}/>
+      <Route path="/product/:productId" element = {<Product/>}/>
     </Routes>
   </BrowserRouter>);
 };
