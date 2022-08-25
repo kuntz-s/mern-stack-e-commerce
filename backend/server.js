@@ -7,6 +7,7 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js"
 import colors from "colors";
+import cors from "cors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config(); //allow to use environment variables on our project
@@ -15,8 +16,16 @@ connectDB(); //connecting the database when starting the server
 
 const app = express();
 
+//cross origin ressource sharing config
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
 //access json body objects
 app.use(express.json());
+
 
 const PORT = process.env.PORT || 3001;
 
