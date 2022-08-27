@@ -22,7 +22,7 @@ const App = () => {
 
   return (<BrowserRouter>
     <Routes>
-      <Route path="/" element={<Navigate replace to="/product/:productId" />} />
+      <Route path="/" element={<Navigate replace to="/accueil" />} />
       <Route path="/accueil" element = {<Accueil/>}/>
       <Route path="/connexion" element = {<ConnexionScreen/>}/>
       <Route path="/inscription" element = {<InscriptionScreen/>}/>

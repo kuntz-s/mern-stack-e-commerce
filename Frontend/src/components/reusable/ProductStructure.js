@@ -21,7 +21,7 @@ const ProductStructure = (props) => {
         return (
           <div className=" w-[60%] md:w-[65%] " key={elt._id}>
             <Link
-              to={`/api/product/category/${elt._id}`}
+              to={`/product/${elt._id}`}
               className="relative flex justify-center items-center "
             >
               <img
@@ -40,7 +40,7 @@ const ProductStructure = (props) => {
               <p className={`${elt.discount ===  0 ? 'hidden' : "absolute top-[-2px] right-0 p-1 text-sm font-bold bg-primary text-white"}`}>- {calculate(elt.price, elt.discount)}%</p>
             </Link>
             <div className="py-3">
-              <Link to={`/api/product/brand/${elt._id}`}>
+              <Link to={`/product/${elt._id}`}>
                 <p className="hover:underline hover:underline-offset-1 font-bold text-sm md:text-[16px] break-words text-ellipsis overflow-hidden ">
                   {elt.name}
                 </p>
@@ -60,8 +60,8 @@ const ProductStructure = (props) => {
                 <Rating name="read-only" value={elt.rating} readOnly /> <Link to = {`/api/product/${elt._id}`}> <span className="hover:underline hover:underline-offset-1 pl-1 font-bold">{elt.numReviews}</span></Link>
               </Box>
               <div className="flex items-center">
-                <p className={`${elt.discount ===  0 ? 'hidden' : 'line-through text-slate-400 text-sm mr-1'}`}>${elt.discount}</p>
-                <p className="text-lg font-bold">${elt.price}</p>
+                <p className={`${elt.discount ===  0 ? 'text-lg font-bold' : "line-through text-slate-400 text-sm mr-1"}`}>${elt.price}</p>
+                <p className={`${elt.discount ===  0 ? 'hidden' : 'text-lg font-bold'}`}>${elt.discount}</p>
               </div>
             </div>
           </div>

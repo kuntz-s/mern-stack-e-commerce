@@ -136,3 +136,9 @@ export const marques =[
         name:"marque 8"
     }
 ]
+
+ export const calculate = (original , reduced) => {
+    let discount = 0;
+    discount = ((original - reduced) * 100) / (original);
+    return Math.ceil(discount);
+  }
