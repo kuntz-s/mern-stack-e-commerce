@@ -47,7 +47,7 @@ const ProductsDisplay = () => {
         });
     } else {
       axios
-        .get(`/api/products/category/${categories.selectedId}`)
+        .get(`${proxyUrl}/api/products/category/${categories.selectedId}`)
         .then((response) => {
           setProducts((prev) => ({ ...prev, selectedProduct: response.data.length > 5 ?response.data.slice(0,5) : response.data }));
         })
