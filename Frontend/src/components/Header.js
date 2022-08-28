@@ -378,7 +378,7 @@ const Header = () => {
         <div
           className={`flex basis-3/5 items-center ${
             offset > 0 ? "justify-between" : "justify-around"
-          } font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-transparent hover:[&>*]:border-primary`}
+          } font-bold [&>*]:cursor-pointer [&>*]:border-b-2 [&>*]:border-white hover:[&>*]:border-primary`}
         >
           <Link to="/">
             <p>Accueil</p>

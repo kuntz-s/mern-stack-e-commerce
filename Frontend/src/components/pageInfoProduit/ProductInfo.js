@@ -5,8 +5,9 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
 import Breadcrumb from "../reusable/Breadcrumb";
-import { BsCart, BsHeart } from "react-icons/bs";
+import { BsCart, BsHeart, BsHeartFill } from "react-icons/bs";
 import { calculate } from "../../Constants";
+import { Link } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 
 const ProductInfo = () => {
@@ -94,7 +95,7 @@ const ProductInfo = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-[50%] md:pl-2 flex flex-col flex-wrap md:pl-2">
+          <div className="w-full md:w-[50%] md:pl-2 flex flex-col flex-wrap md:pl-2 pt-4 md:pt-[0px]">
             {/*product title*/}
             <h2 className="font-bold text-[25px]">{productData.name}</h2>{" "}
             {/*product rating*/}
@@ -160,56 +161,73 @@ const ProductInfo = () => {
                 </li>
               </ul>
             </div>
-            {/**quantity, cart, favorites */}
-            <div className="flex justify-start flex-wrap">
-              <div>
-                <label htmlFor="quantity">Qté : </label>
-                <input
-                  type="number"
-                  min="1"
-                  max={productData.countInStock}
-                  name="quantity"
-                  defaultValue={productParams.quantity}
-                  onChange={(e) => {
-                    if (!isNaN(e.target.value)) {
+            <div className="flex flex-col items-center">
+              {/**quantity, cart, favorites */}
+              <div className="flex justify-start items-center flex-wrap">
+                <div>
+                  <label htmlFor="quantity">Qté : </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max={productData.countInStock}
+                    name="quantity"
+                    defaultValue={productParams.quantity}
+                    onChange={(e) => {
+                      if (!isNaN(e.target.value)) {
+                        setProductParams({
+                          ...productParams,
+                          quantity: e.target.value,
+                        });
+                      }
+                    }}
+                    className="border border-slate-400 rounded-full py-2 pr-2 pl-3 lg:pr-3 lg:pl-4 text-center text-slate-900 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                  />
+                </div>
+                <Tooltip title="ajouter au panier" arrow>
+                  <button
+                    type="button "
+                    className="border border-primary rounded-full py-2 px-4 lg:px-6 bg-primary text-md text-center text-white flex items-center mx-2 hover:shadow hover:shadow-slate-900 hover:shadow-md "
+                  >
+                    <BsCart className="mr-2" /> Ajouter Au Panier
+                  </button>
+                </Tooltip>
+
+                <Tooltip title={!productParams.favorite ? "ajouter comme favoris" : "retirer comme favoris"} arrow>
+                  <div
+                    className={`border  py-2 px-2 rounded-full hover:shadow hover:shadow-md hover:shadow-slate-900 hover:cursor-pointer ${
+                      !productParams.favorite
+                        ? "border-slate-900"
+                        : "text-primary border-primary"
+                    }`}
+                    onClick={(e) =>
                       setProductParams({
                         ...productParams,
-                        quantity: e.target.value,
-                      });
+                        favorite: !productParams.favorite,
+                      })
                     }
-                  }}
-                  className="border border-slate-400 rounded-full py-2 pr-3 pl-4 text-center text-slate-900 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                />
+                  >
+                    <BsHeart className={`${!productParams.favorite ? "text-[25px] ": "hidden"}`} />
+                    <BsHeartFill className={`${productParams.favorite ? "text-[25px] ": "hidden"}`} />
+                  </div>
+                </Tooltip>
               </div>
-              <Tooltip title="ajouter au panier" arrow>
-                <button
-                  type="button "
-                  className="border border-primary rounded-full py-2 px-5 bg-primary text-md text-center text-white flex items-center mx-2 hover:opacity-[0.8]"
-                >
-                  <BsCart className="mr-2" /> Ajouter Au Panier
-                </button>
-              </Tooltip>
 
-              <Tooltip title="ajouter comme favoris" arrow>
-                <div
-                  className={`flex items-center justify-center rounded-full px-3 py-2 hover:cursor-pointer hover:border-primary/80 hover:text-white hover:bg-primary/80   ${
-                    !productParams.favorite
-                      ? "border border-slate-400 "
-                      : "bg-primary text-white border border-primary"
-                  }`}
-                  onClick={(e) =>
-                    setProductParams({
-                      ...productParams,
-                      favorite: !productParams.favorite,
-                    })
-                  }
-                >
-                  <BsHeart className="text-[22px] " />
-                </div>
-              </Tooltip>
+              {/*buy it now */}
+              <div className="flex pt-4">
+                <Tooltip title="acheter maintenant" arrow>
+                  <Link to="/">
+                    <button
+                      type="button"
+                      className=" py-2 px-[100px] text-sm md:text-[18px] md:px-[110px] rounded-full border-2 border-slate-900 text-center font-bold hover:bg-slate-900 hover:text-white"
+                    >
+                      Acheter maintenant
+                    </button>
+                  </Link>
+                </Tooltip>
+              </div>
             </div>
             {/**total */}
-            <p className="my-4 font-bold text-xl">
+            <p className="my-4 font-bold text-xl text-center">
               <span>Total : </span>
               <span>
                 {Math.round(
@@ -218,7 +236,8 @@ const ProductInfo = () => {
                       ? productData.price
                       : productData.discount) *
                     100
-                ) / 100} $
+                ) / 100}{" "}
+                $
               </span>
             </p>
           </div>
