@@ -421,7 +421,7 @@ const Header = () => {
                     className="hover:text-primary cursor-pointer py-2 italic"
                   >
                     {" "}
-                    <Link to={"/" + categorie.name}>{categorie.name} </Link>
+                    <Link to={"/category/" + categorie._id}>{categorie.name} </Link>
                   </p>
                 );
               })}
@@ -678,7 +678,7 @@ const Header = () => {
                         className="hover:bg-primary pl-4 hover:text-white cursor-pointer "
                       >
                         {" "}
-                        <Link to={"/" + categorie.name}>{categorie.name} </Link>
+                        <Link to={"/category/" + categorie._id}>{categorie.name} </Link>
                       </p>
                     );
                   })}

@@ -89,7 +89,7 @@ const ProductInfo = () => {
             <div className="w-full mt-1  flex justify-center ">
               <img
                 src={productData.image[displayImg]}
-                className="min-w-[80%] h-auto max-h-[68vh] "
+                className="min-w-[60%] h-auto max-h-[68vh] "
                 alt="productImg"
               />
             </div>

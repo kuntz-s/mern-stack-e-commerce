@@ -6,6 +6,7 @@ import ConnexionScreen from "./screens/ConnexionScreen";
 import InscriptionScreen from "./screens/InscriptionScreen";
 import Accueil from "./screens/Accueil";
 import Product from "./screens/Product";
+import ProductsPerCategories from "./components/listeProduits/ProductsPerCategories";
 
 
 
@@ -13,7 +14,6 @@ const App = () => {
 
   document.title = "Proshop";
   const dispatch = useDispatch();
-  console.log("proxy est ",process.env.REACT_APP_PROXY_URL)
 
   useEffect(() => {
     dispatch(getBrands());
@@ -27,6 +27,7 @@ const App = () => {
       <Route path="/connexion" element = {<ConnexionScreen/>}/>
       <Route path="/inscription" element = {<InscriptionScreen/>}/>
       <Route path="/product/:productId" element = {<Product/>}/>
+      <Route path="/category/:categoryId" element = {<ProductsPerCategories/>}/>
     </Routes>
   </BrowserRouter>);
 };
