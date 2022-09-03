@@ -58,7 +58,7 @@ const CategoriesList = () => {
                 key={category._id}
                 className="text-center flex flex-col items-center text-break w-[20%] my-4"
               >
-                <Link to={`/categories/${category._id}`}>
+                <Link to={`/category/${category._id}`}>
                   <img
                     src={category.url}
                     className="rounded-full shrink-0 h-[125px] w-[125px] lg:h-[150px] lg:w-[150px] hover:scale-[1.1]"
