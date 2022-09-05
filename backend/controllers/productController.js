@@ -104,7 +104,7 @@ const getProductsByCategory = asyncHandler(async (req, res) => {
  * @access Public
  */
 const getProductsByBrand = asyncHandler(async (req, res) => {
-  const products = await Product.find({ brad: req.params.id })
+  const products = await Product.find({ brand: req.params.id })
     .populate("brand")
     .populate("category");
   if (products) {

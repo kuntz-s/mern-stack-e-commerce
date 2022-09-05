@@ -47,7 +47,7 @@ const BrandsList = () => {
                 key={brand._id}
                 className=" w-[20%] my-2 flex justify-center w-[12%] md:w-[10%] "
               >
-                <Link to={`/brands/${brand._id}`}>
+                <Link to={`/brand/${brand._id}`}>
                   <img
                     src={brand.url}
                     className="shrink-0 max-h-20 scale-[0.9] md:scale-[0.8] hover:scale-[1] md:hover:scale-[0.9]"

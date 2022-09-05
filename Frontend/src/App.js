@@ -7,6 +7,7 @@ import InscriptionScreen from "./screens/InscriptionScreen";
 import Accueil from "./screens/Accueil";
 import Product from "./screens/Product";
 import Categories from "./screens/Categories";
+import Brands from "./screens/Brands";
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
       <Route path="/inscription" element = {<InscriptionScreen/>}/>
       <Route path="/product/:productId" element = {<Product/>}/>
       <Route path="/category/:categoryId" element = {<Categories/>}/>
+      <Route path="/brand/:brandId" element = {<Brands/>}/>
     </Routes>
   </BrowserRouter>);
 };

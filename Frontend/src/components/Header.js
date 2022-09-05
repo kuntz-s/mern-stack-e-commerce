@@ -468,7 +468,7 @@ const Header = () => {
                     className="hover:text-primary cursor-pointer py-2 italic text-center"
                   >
                     {" "}
-                    <Link to={"/" + brand.name}>{brand.name} </Link>
+                    <Link to={"/brand/" + brand._id}>{brand.name} </Link>
                   </p>
                 );
               })}
@@ -728,7 +728,7 @@ const Header = () => {
                         className="hover:bg-primary  pl-4 hover:text-white cursor-pointer "
                       >
                         {" "}
-                        <Link to={"/" + brand.name}>{brand.name} </Link>
+                        <Link to={"/brand/" + brand._id}>{brand.name} </Link>
                       </p>
                     );
                   })}
