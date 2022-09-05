@@ -4,11 +4,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
-import Breadcrumb from "../reusable/Breadcrumb";
 import { BsCart, BsHeart, BsHeartFill } from "react-icons/bs";
 import { calculate } from "../../Constants";
 import { Link } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
+import Breadcrumb from "../reusable/Breadcrumb";
+
 
 const ProductInfo = () => {
   const params = useParams();
@@ -51,7 +52,7 @@ const ProductInfo = () => {
           <Breadcrumb
             breadcrumbData={[
               {
-                href: `/categories/${productData.category._id}`,
+                href: `/category/${productData.category._id}`,
                 name: productData.category.name,
               },
               {
