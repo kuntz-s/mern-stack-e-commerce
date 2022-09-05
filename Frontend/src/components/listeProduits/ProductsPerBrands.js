@@ -4,20 +4,20 @@ import axios from "axios";
 import ProductsPagination from "../reusable/ProductsPagination";
 import Breadcrumb from "../reusable/Breadcrumb";
 
-const ProductsPerCategories = () => {
+const ProductsPerBrands = () => {
   const params = useParams();
   const [productsList, setProductsList] = useState(null);
 
   useEffect(() => {
-    const getProductsByCategory = async () => {
+    const getProductsByBrand = async () => {
       const result = await axios.get(
-        `${process.env.REACT_APP_PROXY_URL}/api/products/category/${params.categoryId}`
+        `${process.env.REACT_APP_PROXY_URL}/api/products/brand/${params.brandId}`
       );
       setProductsList(result.data);
     };
 
-    getProductsByCategory();
-  }, [params.categoryId]);
+    getProductsByBrand();
+  }, [params.brandId]);
 
   return (
     <section className = "px-4 py-4 bg-gray-100 ">
@@ -27,14 +27,14 @@ const ProductsPerCategories = () => {
             breadcrumbData={[
               {
                 href:"none",
-                name: !productsList ? 'aucun' : productsList[0].category.name,
+                name: !productsList ? 'aucun' : productsList[0].brand.name,
               }
             ]}
           />
         </div>
-      <ProductsPagination  data ={productsList} name={!productsList ? 'aucun' : productsList[0].category.name} count = {!productsList ? 10 : Math.ceil(productsList.length /5)} numElts = {5}/>
+      <ProductsPagination  data ={productsList} name={!productsList ? 'aucun' : productsList[0].brand.name} count = {!productsList ? 10 : Math.ceil(productsList.length /5)} numElts = {5}/>
     </section>
   );
 };
 
-export default ProductsPerCategories;
+export default ProductsPerBrands;
