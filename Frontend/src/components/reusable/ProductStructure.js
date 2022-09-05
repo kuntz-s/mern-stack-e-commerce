@@ -46,11 +46,11 @@ const ProductStructure = (props) => {
                 </p>
               </Link>
               <div className="text-sm font-bold text-slate-500 hover:[&>*]:underline hover:[&>*]:underline-offset-">
-                <Link to={`/api/product/${elt.category._id}`}>
+                <Link to={`/category/${elt.category._id}`}>
                   <span>{elt.category.name}</span>
                 </Link>
                 <span> {'>  '}</span>
-                <Link to={`/api/product/${elt.brand._id}`}>
+                <Link to={`/brand/${elt.brand._id}`}>
                   <span>{elt.brand.name}</span>
                 </Link>
               </div>
