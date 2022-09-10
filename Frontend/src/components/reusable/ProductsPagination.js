@@ -3,6 +3,8 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+import Rating from "@mui/material/Rating";
 import ProductStructure from "./ProductStructure";
 
 const sortList = [
@@ -22,12 +24,37 @@ const ProductsPagination = (props) => {
   });
   const [pageNumber, setPageNumber] = useState(1);
 
+  /** price min and max for the material ui slider */
+  const [displayParams, setDisplayParams] = useState([20, 37]);
+
+  /**price min distance for the material ui slider */
+  const minDistance = 10;
+
   useEffect(() => {
     const end = numElts * pageNumber;
     if (productsList) {
       setData(productsList.slice(end - numElts, end));
     }
   }, [pageNumber, productsList, numElts]);
+
+  /**handlechange function when modifying price slider */
+  const handleChange1 = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setDisplayParams([
+        Math.min(newValue[0], displayParams[1] - minDistance),
+        displayParams[1],
+      ]);
+    } else {
+      setDisplayParams([
+        displayParams[0],
+        Math.max(newValue[1], displayParams[0] + minDistance),
+      ]);
+    }
+  };
 
   if (!data) {
     return (
@@ -46,7 +73,81 @@ const ProductsPagination = (props) => {
     return (
       <section className="overflow-hidden">
         <div className="md:grid md:grid-cols-5 md:gap-4 py-2">
-          <div className="border-2 md:col-span-1 bg-white shadow-md shadow-slate-900/20 rounded-md"></div>
+          <div className="border-2 md:col-span-1 bg-white shadow-md shadow-slate-900/20 rounded-md py-2 ">
+            <p className="text-center py-1 font-bold ">Filtrer par</p>
+
+            {/**price filtering */}
+            <div className="px-2 py-1 border">
+              <div className="flex justify-between">
+                <p className="font-bold">Prix</p>
+                <p className="text-primary font-bold hover:cursor-pointer">
+                  Appliquer
+                </p>
+              </div>
+              <Box>
+                <Slider
+                  getAriaLabel={() => "Minimum distance"}
+                  value={displayParams}
+                  onChange={handleChange1}
+                  valueLabelDisplay="auto"
+                  getAriaValueText={(value) => {
+                    return `${value}°C`;
+                  }}
+                  disableSwap
+                />
+              </Box>
+              <p className="text-center font-bold ">
+                {displayParams[0]}$ - {displayParams[1]}$
+              </p>
+            </div>
+
+            {/**stars rating */}
+            <div className="py-2  border border-b-1">
+              <p className="font-bold px-2">Notation</p>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                  transform: "scale(0.9)",
+                }}
+              >
+                {[...Array(4)].map((e, i) => {
+                  const star = (i - 4) * -1;
+                  return (
+                    <div className="flex items-center hover:font-bold" key={i}>
+                      <input
+                        type="radio"
+                        name="fav_language"
+                        value={star}
+                        className="scale-[1.2] mr-1"
+                      />
+                      <Rating name="read-only" value={star} readOnly />
+                    </div>
+                  );
+                })}
+              </Box>
+            </div>
+
+            {/**discount */}
+            <div className="py-2 px-2 border border-b-1">
+              <p className="font-bold ">Solde</p>
+                {[80,60,40,20].map((e, i) => {
+                  const star = (i - 4) * -1;
+                  return (
+                    <div className="flex items-center hover:font-bold" key={i}>
+                      <input
+                        type="radio"
+                        name="fav_language"
+                        value={star}
+                        className="scale-[1.2] mr-2"
+                      />
+                      <span>{e}% et plus</span>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
 
           {/* we will display here the products lists slice into a specified number of items */}
           <div className="md:col-span-4 bg-white shadow-md shadow-slate-900/20 rounded-md">
@@ -73,7 +174,7 @@ const ProductsPagination = (props) => {
                     });
                   }}
                 >
-                  <span className="font-bold">Trier par : </span>
+                  <span className="font-bold">Classer par : </span>
                   <span> {sortParams.name}</span>
                 </p>
                 <div
@@ -122,7 +223,7 @@ const ProductsPagination = (props) => {
 
             {/**pagination display */}
             <div className="flex justify-center">
-              <Stack spacing={2} sx={{padding:2}}>
+              <Stack spacing={2} sx={{ padding: 2 }}>
                 <Pagination
                   count={props.count}
                   page={pageNumber}

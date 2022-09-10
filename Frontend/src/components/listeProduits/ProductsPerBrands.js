@@ -32,6 +32,10 @@ const ProductsPerBrands = () => {
             ]}
           />
         </div>
+        <div className="flex flex-col items-center py-4">
+          <p className="text-center">Tous les produits de chez <span className="font-bold">{!productsList ? 'aucun' : productsList[0].brand.name}</span></p>
+          <img className="shrink-0 max-h-20 scale-[1] md:scale-[0.9]" src={!productsList ? 'aucun' : productsList[0].brand.url} alt="aucun logo trouvé" />
+        </div>
       <ProductsPagination  data ={productsList} name={!productsList ? 'aucun' : productsList[0].brand.name} count = {!productsList ? 10 : Math.ceil(productsList.length /5)} numElts = {5}/>
     </section>
   );
