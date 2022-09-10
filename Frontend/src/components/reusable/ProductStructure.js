@@ -57,7 +57,7 @@ const ProductStructure = (props) => {
               <Box
                 sx={{display:'flex', alignItems:'center',marginLeft:"-13%", transform:'scale(0.8)'}}
               >
-                <Rating name="read-only" value={elt.rating} readOnly /> <Link to = {`/api/product/${elt._id}`}> <span className="hover:underline hover:underline-offset-1 pl-1 font-bold">{elt.numReviews}</span></Link>
+                <Rating name="read-only" value={elt.rating} readOnly precision={0.1} /> <Link to = {`/api/product/${elt._id}`}> <span className="hover:underline hover:underline-offset-1 pl-1 font-bold">{elt.numReviews}</span></Link>
               </Box>
               <div className="flex items-center">
                 <p className={`${elt.discount ===  0 ? 'text-lg font-bold' : "line-through text-slate-400 text-sm mr-1"}`}>${elt.price}</p>
