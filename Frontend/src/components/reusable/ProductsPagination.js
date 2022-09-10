@@ -5,6 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Rating from "@mui/material/Rating";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import ProductStructure from "./ProductStructure";
 
 const sortList = [
@@ -25,7 +26,10 @@ const ProductsPagination = (props) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   /** price min and max for the material ui slider */
-  const [displayParams, setDisplayParams] = useState([20, 37]);
+  const [sliderValue, setSliderValue] = useState([20, 37]);
+
+  /** display filter options on small screen  */
+  const [displayFilter, setDisplayFilter] = useState(false);
 
   /**price min distance for the material ui slider */
   const minDistance = 10;
@@ -44,14 +48,14 @@ const ProductsPagination = (props) => {
     }
 
     if (activeThumb === 0) {
-      setDisplayParams([
-        Math.min(newValue[0], displayParams[1] - minDistance),
-        displayParams[1],
+      setSliderValue([
+        Math.min(newValue[0], sliderValue[1] - minDistance),
+        sliderValue[1],
       ]);
     } else {
-      setDisplayParams([
-        displayParams[0],
-        Math.max(newValue[1], displayParams[0] + minDistance),
+      setSliderValue([
+        sliderValue[0],
+        Math.max(newValue[1], sliderValue[0] + minDistance),
       ]);
     }
   };
@@ -73,66 +77,75 @@ const ProductsPagination = (props) => {
     return (
       <section className="overflow-hidden">
         <div className="md:grid md:grid-cols-5 md:gap-4 py-2">
-          <div className="border-2 md:col-span-1 bg-white shadow-md shadow-slate-900/20 rounded-md py-2 ">
-            <p className="text-center py-1 font-bold ">Filtrer par</p>
-
-            {/**price filtering */}
-            <div className="px-2 py-1 border">
-              <div className="flex justify-between">
-                <p className="font-bold">Prix</p>
-                <p className="text-primary font-bold hover:cursor-pointer">
-                  Appliquer
-                </p>
-              </div>
-              <Box>
-                <Slider
-                  getAriaLabel={() => "Minimum distance"}
-                  value={displayParams}
-                  onChange={handleChange1}
-                  valueLabelDisplay="auto"
-                  getAriaValueText={(value) => {
-                    return `${value}°C`;
-                  }}
-                  disableSwap
-                />
-              </Box>
-              <p className="text-center font-bold ">
-                {displayParams[0]}$ - {displayParams[1]}$
+          <div className="border-2 md:col-span-1 bg-white shadow-md shadow-slate-900/20 rounded-md py-2 my-2 md:my-0">
+            <div className="flex justify-between items-center py-1 px-2">
+              <p className=" font-bold ">Filtrer par</p>
+              <p className="md:hidden text-[25px] hover:text-primary" onClick={() => setDisplayFilter(!displayFilter)}>
+                <MdKeyboardArrowDown className={`${displayFilter? 'hidden' : 'block'}`} /> <MdKeyboardArrowUp className={`${ !displayFilter? 'hidden' : 'block'}`}/>
               </p>
             </div>
 
-            {/**stars rating */}
-            <div className="py-2  border border-b-1">
-              <p className="font-bold px-2">Notation</p>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "start",
-                  transform: "scale(0.9)",
-                }}
-              >
-                {[...Array(4)].map((e, i) => {
-                  const star = (i - 4) * -1;
-                  return (
-                    <div className="flex items-center hover:font-bold" key={i}>
-                      <input
-                        type="radio"
-                        name="fav_language"
-                        value={star}
-                        className="scale-[1.2] mr-1"
-                      />
-                      <Rating name="read-only" value={star} readOnly />
-                    </div>
-                  );
-                })}
-              </Box>
-            </div>
+            <div className={`${displayFilter? 'block': 'hidden'} md:block`}>
+              {/**price filtering */}
+              <div className="px-2 py-1 border">
+                <div className="flex justify-between">
+                  <p className="font-bold">Prix</p>
+                  <p className="text-primary font-bold hover:cursor-pointer">
+                    Appliquer
+                  </p>
+                </div>
+                <Box>
+                  <Slider
+                    getAriaLabel={() => "Minimum distance"}
+                    value={sliderValue}
+                    onChange={handleChange1}
+                    valueLabelDisplay="auto"
+                    getAriaValueText={(value) => {
+                      return `${value}°C`;
+                    }}
+                    disableSwap
+                  />
+                </Box>
+                <p className="text-center font-bold ">
+                  {sliderValue[0]}$ - {sliderValue[1]}$
+                </p>
+              </div>
 
-            {/**discount */}
-            <div className="py-2 px-2 border border-b-1">
-              <p className="font-bold ">Solde</p>
-                {[80,60,40,20].map((e, i) => {
+              {/**stars rating */}
+              <div className="py-2  border border-b-1">
+                <p className="font-bold px-2">Notation</p>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "start",
+                    transform: "scale(0.9)"
+                  }}
+                >
+                  {[...Array(4)].map((e, i) => {
+                    const star = (i - 4) * -1;
+                    return (
+                      <div
+                        className="flex items-center hover:font-bold"
+                        key={i}
+                      >
+                        <input
+                          type="radio"
+                          name="fav_language"
+                          value={star}
+                          className="scale-[1.2] mr-1"
+                        />
+                        <Rating name="read-only" value={star} readOnly />
+                      </div>
+                    );
+                  })}
+                </Box>
+              </div>
+
+              {/**discount */}
+              <div className="py-2 px-2 border border-b-1">
+                <p className="font-bold ">Solde</p>
+                {[80, 60, 40, 20].map((e, i) => {
                   const star = (i - 4) * -1;
                   return (
                     <div className="flex items-center hover:font-bold" key={i}>
@@ -146,6 +159,7 @@ const ProductsPagination = (props) => {
                     </div>
                   );
                 })}
+              </div>
             </div>
           </div>
 
