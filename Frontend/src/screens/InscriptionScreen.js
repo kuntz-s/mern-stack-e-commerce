@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import {useDispatch, useSelector} from "react-redux";
+import { registerUser } from "../redux/userSlice";
 const logo = require("../assets/logo.png");
 
 const InscriptionScreen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {loading} = useSelector( (state) => state.user); 
   const [loginInfo, setLoginInfo] = useState({
     firstName: "",
     lastName: "",
@@ -19,6 +23,19 @@ const InscriptionScreen = () => {
     const value = e.target.value;
     setLoginInfo({ ...loginInfo, [name]: value });
   };
+
+  const handleSubmit = () =>  {
+    if(loginInfo.firstName && loginInfo.lastName && loginInfo.email && loginInfo.password && loginInfo.confirmPassword) {
+      if(loginInfo.password === loginInfo.confirmPassword) {
+        dispatch(registerUser({name:loginInfo.lastName, surname: loginInfo.firstName, email:loginInfo.email, password:loginInfo.password}));
+      } else {
+          alert('votre mot de passe et sa confirmation ne correspondent pas ');
+          return
+      }
+    } else {
+      alert('un ou plusieurs champs manquants')
+    }
+  }
 
   return (
     <section className="min-h-screen w-full flex justify-center items-center bg-yellow-400/30">
@@ -136,7 +153,8 @@ const InscriptionScreen = () => {
               <button
                 type="button"
                 className="px-2 py-[6px] mt-4 w-full bg-primary hover:bg-primary/70 font-medium text-white text-center text-md rounded-md  cursor-pointer"
-                onClick = {() => console.log(loginInfo)}
+                onClick = {handleSubmit}
+                disabled = {loading}
               >
                 {" "}
                 S'inscrire
