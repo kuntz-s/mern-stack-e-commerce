@@ -8,6 +8,7 @@ import Accueil from "./screens/Accueil";
 import Product from "./screens/Product";
 import Categories from "./screens/Categories";
 import Brands from "./screens/Brands";
+import Profile from "./components/pageProfilUtilisateur/Profile";
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
   return (<BrowserRouter>
     <Routes>
       <Route path="/" element={<Navigate replace to="/accueil" />} />
+      <Route path="/profil" element={<Profile/>} />
       <Route path="/accueil" element = {<Accueil/>}/>
       <Route path="/connexion" element = {<ConnexionScreen/>}/>
       <Route path="/inscription" element = {<InscriptionScreen/>}/>
